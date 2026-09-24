@@ -1,0 +1,262 @@
+--- before/README.md
++++ after/README.md
+@@ -1,6 +1,6 @@
+ # Creator Scout 独立首页交互原型
+ 
+-> **2026-09-24 空间切换连续性更新**：264px紧凑尺寸已由用户验收。现在切换成功后保留同一浮窗，账号区与切换按钮原位不动；切换中／失败不重绘背景，成功后才同步目标空间。点击外部、账户入口或Esc可主动关闭，之后回调不重开、不抢焦点。详见 `SWITCH_CONTINUITY_REPORT.md`。本条覆盖历史文档中“切换成功后关闭浮窗”的要求。
++> **2026-09-24 最新：浮窗底边贴合**：264px视觉尺寸保持已验收版本。浮窗底边始终贴在账户入口上方8px；成功切换后继续保留同一浮窗，高度按当前内容约150ms平滑收放，上边缘及切换按钮随高度移动，不再固定顶部或按最大高度预留空隙。小窗口限高滚动，减少动态效果模式跳过伸缩动画。切换中／失败不重绘背景，成功后同步目标空间；主动关闭后回调不重开、不抢焦点。详见 `BOTTOM_ANCHOR_REPORT.md`。本条覆盖旧“顶部及按钮坐标固定”和“成功后关闭浮窗”的要求。
+ 
+ > **2026-09-24 浮窗紧凑版**：最新用户确认覆盖旧浮窗324/326/280px及44px菜单规范，现为264px含边框、38px菜单、36px头像、18px图标。亮度与业务交互保留。详见 `POPOVER_COMPACT_REPORT.md`。最新首页Figma视觉同步已由用户暂缓，本次不做该项、不宣称已对齐最新Figma。
+ 
+@@ -36,7 +36,8 @@
+ cd "creator-scout-home"
+ python tests/verify.py        # 端到端：页面内测试 + 主流程操作 + 截图 + 1280×800 适配
+ python tests/verify-compact-popover.py  # 264px尺度、四态、颜色/对齐、提示避让及上一轮交互回归
+-python tests/verify-switch-continuity.py  # 当前切换连续性：节点/位置稳定、背景更新次数、关闭/焦点、失败重试及既有回归
++python tests/verify-switch-continuity.py  # 连续性：同节点、底边贴合、背景更新次数、关闭/焦点及失败重试
++python tests/verify-bottom-anchor.py  # 最新验收：逐帧8px间距、150ms高度过渡、中断/小窗/减少动态效果及完整回归
+ # layout-audit.py / color-audit.py 保留历史用途，不能作为最新Figma或本轮紧凑版验收入口。
+ ```
+ 
+
+--- before/SWITCH_CONTINUITY_REPORT.md
++++ after/SWITCH_CONTINUITY_REPORT.md
+@@ -1,4 +1,6 @@
+ # Creator Scout 空间切换连续性优化报告
++
++> 后续更新（2026-09-24）：用户确认改为底边距账户入口8px、上边缘约150ms平滑伸缩。下文的最大高度预留、顶部及按钮坐标不变、个人状态额外38px外部空隙均为已被替代的历史方案，不作为当前要求。保留浮窗与局部更新等行为继续有效；最新实现与测试见 `BOTTOM_ANCHOR_REPORT.md`。
+ 
+ 日期：2026-09-24。范围：仅现有 `creator-scout-home/` 独立首页中的空间切换及浮窗连续性。264px紧凑尺寸已由用户验收，本次不改字体、间距、颜色、头像、图标或菜单尺寸。不重建项目，不修改或合并V9，不接真实服务。
+ 
+
+--- before/js/app.js
++++ after/js/app.js
+@@ -18,7 +18,8 @@
+   var disposeSwitchHint = null;
+   var switchErrorToast = null;
+   var lastPageKey = null;
+-  var popoverMaximumHeight = 0;
++  var popoverResize = null;
++  var reducedPopoverMotion = global.matchMedia('(prefers-reduced-motion: reduce)');
+ 
+   function pageKey() {
+     var state = store.getState();
+@@ -44,23 +45,47 @@
+       membershipRole: store.getMembershipRole(), currentSpaceType: spaceType || store.getCurrentSpace().type });
+   }
+ 
+-  // 打开时测量可切换状态中的最大自然高度，只用于定位；不设置固定高度或菜单占位。
+-  function measurePopoverMaximum(el) {
+-    var probe = document.createElement('div');
+-    probe.className = 'account-popover';
+-    probe.setAttribute('aria-hidden', 'true');
+-    probe.setAttribute('inert', '');
+-    probe.style.cssText = 'visibility:hidden;pointer-events:none;left:-10000px;top:0;bottom:auto;height:auto;max-height:none;animation:none;';
+-    probe.style.width = global.getComputedStyle(el).width;
+-    document.body.appendChild(probe);
+-    var maximum = 0;
+-    try {
+-      (store.getTeam() ? ['personal', 'team'] : ['personal']).forEach(function (type) {
+-        probe.innerHTML = UI.popoverAccountHTML(popoverModel(type), {});
+-        maximum = Math.max(maximum, probe.offsetHeight);
+-      });
+-    } finally { probe.remove(); }
+-    return maximum;
++  function cancelPopoverResize() {
++    if (!popoverResize) return;
++    var motion = popoverResize;
++    popoverResize = null;
++    if (motion.frame !== null) global.cancelAnimationFrame(motion.frame);
++    motion.el.style.height = motion.height;
++    motion.el.style.overflowY = motion.overflow;
++    delete motion.el.dataset.resizing;
++  }
++
++  // 仅空间内容改变时短暂插值高度；底边不动，不缩放文字，结束恢复自然高度。
++  function animatePopoverHeight(el, fromHeight) {
++    cancelPopoverResize();
++    var toHeight = el.offsetHeight;
++    if (!el.isConnected || reducedPopoverMotion.matches || Math.abs(toHeight - fromHeight) < 0.5) return;
++    // 限高滚动的窗口优先保证操作可达，不动画裁切其内容。
++    if (el.scrollHeight > el.clientHeight + 1) return;
++    var motion = { el: el, frame: null, height: el.style.height, overflow: el.style.overflowY,
++      start: global.performance.now(), duration: 150 };
++    popoverResize = motion;
++    el.dataset.resizing = 'true';
++    // 过渡中不出现瞬时滚动条，避免可用宽度变化把按钮横向挤动。
++    el.style.overflowY = 'hidden';
++    el.style.height = fromHeight + 'px';
++    function tick(now) {
++      if (popoverResize !== motion) return;
++      if (!el.isConnected) { cancelPopoverResize(); return; }
++      var progress = Math.min(1, Math.max(0, (now - motion.start) / motion.duration));
++      var eased = 1 - Math.pow(1 - progress, 3);
++      el.style.height = (fromHeight + (toHeight - fromHeight) * eased) + 'px';
++      if (progress >= 1) cancelPopoverResize();
++      // 提示跟随实际按钮坐标，不停在切换前的旧位置。
++      if (disposeSwitchHint && disposeSwitchHint.update) disposeSwitchHint.update();
++      if (popoverResize === motion) motion.frame = global.requestAnimationFrame(tick);
++    }
++    motion.frame = global.requestAnimationFrame(tick);
++  }
++
++  function onPopoverViewportChange() {
++    cancelPopoverResize();
++    positionPopover();
+   }
+ 
+   function positionPopover() {
+@@ -72,11 +97,10 @@
+     var entry = document.getElementById('account-entry');
+     var bottomEdge = Math.min(viewportBottom, entry ? entry.getBoundingClientRect().top - 8 : viewportBottom);
+     bottomEdge = Math.max(topEdge, bottomEdge);
+-    var top = Math.max(topEdge, bottomEdge - popoverMaximumHeight);
+-    // 顶部与切换按钮稳定；缺少团队管理时仅下边缘缩短。窗口缩放时重新约束。
+-    el.style.top = Math.round(top) + 'px';
+-    el.style.bottom = 'auto';
+-    el.style.maxHeight = Math.max(0, bottomEdge - top) + 'px';
++    // 始终锚定账户入口上方8px；按当前内容收放上边缘，不为其他空间预留外部空隙。
++    el.style.top = 'auto';
++    el.style.bottom = (global.innerHeight - bottomEdge) + 'px';
++    el.style.maxHeight = Math.max(0, bottomEdge - topEdge) + 'px';
+     if (disposeSwitchHint && disposeSwitchHint.update) disposeSwitchHint.update();
+   }
+ 
+@@ -145,6 +169,7 @@
+     var app = document.getElementById('app');
+     var signedOut = document.getElementById('signed-out');
+     if (state.signedOut) {
++      cancelPopoverResize();
+       clearSwitchHint();
+       app.hidden = true;
+       signedOut.hidden = false;
+@@ -165,9 +190,9 @@
+     var entry = document.getElementById('account-entry');
+     if (entry) entry.setAttribute('aria-expanded', appState.popoverOpen ? 'true' : 'false');
+     if (!appState.popoverOpen) {
++      cancelPopoverResize();
+       clearSwitchHint();
+       root.innerHTML = '';
+-      popoverMaximumHeight = 0;
+       return;
+     }
+     var el = root.querySelector('.account-popover');
+@@ -180,8 +205,8 @@
+       el.tabIndex = -1;
+       el.innerHTML = UI.popoverAccountHTML(popoverModel(), { switching: busy, hintId: 'space-switch-hint' });
+       el.dataset.spaceId = store.getState().currentSpaceId;
++      if (reducedPopoverMotion.matches) el.style.animation = 'none';
+       root.appendChild(el);
+-      popoverMaximumHeight = measurePopoverMaximum(el);
+       positionPopover();
+       disposeSwitchHint = UI.attachSwitchHint(el, root);
+     }
+@@ -192,7 +217,10 @@
+     if (hadFocus && active.matches('button')) {
+       appState.popoverFocusKey = { action: active.dataset.action, name: active.dataset.name };
+     }
+-    if (el.dataset.spaceId !== store.getState().currentSpaceId) {
++    var spaceChanged = el.dataset.spaceId !== store.getState().currentSpaceId;
++    var previousHeight = el.getBoundingClientRect().height;
++    if (spaceChanged) {
++      cancelPopoverResize();
+       UI.updatePopoverSpace(el, popoverModel());
+       el.dataset.spaceId = store.getState().currentSpaceId;
+     }
+@@ -214,6 +242,10 @@
+     }
+     el.scrollTop = oldScroll;
+     positionPopover();
++    if (spaceChanged) {
++      animatePopoverHeight(el, previousHeight);
++      if (disposeSwitchHint && disposeSwitchHint.update) disposeSwitchHint.update();
++    }
+   }
+ 
+   function openPopover(fromKeyboard) {
+@@ -371,6 +403,8 @@
+       return;
+     }
+     if (e.key === 'Tab') {
++      // 用户继续导航时直接完成短过渡，避免焦点进入暂被裁切的底部菜单。
++      if (popoverResize) onPopoverViewportChange();
+       var el = document.querySelector('.account-popover');
+       var active = document.activeElement;
+       if (!el || (!el.contains(active) && active.id !== 'account-entry')) return;
+@@ -396,11 +430,12 @@
+     document.getElementById('topbar').addEventListener('click', onConversationClick);
+     document.addEventListener('click', onDocumentClick);
+     document.addEventListener('keydown', onDocumentKeydown);
+-    global.addEventListener('resize', positionPopover);
++    global.addEventListener('resize', onPopoverViewportChange);
+     if (global.visualViewport) {
+-      global.visualViewport.addEventListener('resize', positionPopover);
+-      global.visualViewport.addEventListener('scroll', positionPopover);
+-    }
++      global.visualViewport.addEventListener('resize', onPopoverViewportChange);
++      global.visualViewport.addEventListener('scroll', onPopoverViewportChange);
++    }
++    if (reducedPopoverMotion.addEventListener) reducedPopoverMotion.addEventListener('change', onPopoverViewportChange);
+ 
+     document.getElementById('reenter-btn').addEventListener('click', function () {
+       store.reenterDemo();
+
+--- before/tests/verify-switch-continuity.py
++++ after/tests/verify-switch-continuity.py
+@@ -68,7 +68,7 @@
+ 
+ def finish(page, failure=False):
+     page.evaluate('() => failSwitch()' if failure else '() => finishSwitch()')
+-    page.wait_for_function('() => !__creatorScoutStore.isSwitching()')
++    page.wait_for_function('() => !__creatorScoutStore.isSwitching() && !document.querySelector(".account-popover[data-resizing]")')
+     if failure:
+         page.wait_for_selector('.toast-action')
+ 
+@@ -85,12 +85,12 @@
+         page.fill('textarea', '团队空间未发送内容必须保留')
+         legacy.open_pop(page, keyboard=True)
+         instrument(page)
+-        first_button = rect(page, '.switch-btn')
+-        first_top = rect(page, '.account-popover')['y']
++        first_bottom = rect(page, '.account-popover')['bottom']
+         for n, target in enumerate([PERSONAL, TEAM, PERSONAL, TEAM]):
+             prefix = f'{width} 第{n+1}次：'
+             before_renders = page.evaluate('JSON.stringify(audit.renders)')
+             current_space = page.evaluate('__creatorScoutStore.getState().currentSpaceId')
++            before_button = rect(page, '.switch-btn')
+             page.evaluate('() => {audit.input=document.querySelector("textarea");audit.entry=document.querySelector("#account-entry");}')
+             if width == 1440 and n == 0:
+                 shot(page, '01-before-team')
+@@ -101,7 +101,7 @@
+             calls = page.evaluate('audit.calls')
+             page.evaluate('audit.button.dispatchEvent(new MouseEvent("click",{bubbles:true}))')
+             check(prefix+'重复点击不发出第二次请求', page.evaluate('audit.calls') == calls)
+-            check(prefix+'切换中按钮坐标稳定', same_box(first_button, rect(page,'.switch-btn')))
++            check(prefix+'切换未提交时按钮坐标稳定', same_box(before_button, rect(page,'.switch-btn')))
+             if width == 1440 and n == 0:
+                 shot(page, '02-switching-team-to-personal')
+             finish(page)
+@@ -110,7 +110,8 @@
+             check(prefix+'成功背景各区域只更新一次', page.evaluate('audit.renders') == {'sidebar':n+1,'top':n+1,'conversation':n+1})
+             check(prefix+'目标空间、侧栏项目、浮窗信息同步', page.evaluate('__creatorScoutStore.getState().currentSpaceId') == target and page.inner_text('.space-name') == expected and (('PetPal Essentials' if target==PERSONAL else 'Aurora Skincare') in page.inner_text('#sidebar-scroll')))
+             check(prefix+'成功焦点在原切换按钮且账号信息不变', page.evaluate('document.activeElement===audit.button') and page.inner_text('.pop-name') == '林小满')
+-            check(prefix+'浮窗顶部与按钮坐标固定，下边缘自然收缩', abs(rect(page,'.account-popover')['y']-first_top)<.1 and same_box(first_button,rect(page,'.switch-btn')) and rect(page,'.account-popover')['height']==(351 if target==PERSONAL else 389))
++            box = rect(page, '.account-popover')
++            check(prefix+'浮窗底边固定距入口8px，上边缘随自然高度变化', abs(box['bottom']-first_bottom)<.1 and abs(rect(page,'#account-entry')['y']-box['bottom']-8)<.1 and box['height']==(351 if target==PERSONAL else 389) and abs(rect(page,'.switch-btn')['y']-box['y']-79)<.1)
+             check(prefix+'没有重播入场动画或弹成功toast',page.evaluate('audit.animations')==0 and page.locator('.toast').count()==0)
+             check(prefix+'团队管理显隐与当前空间一致，不留空行',page.locator('.pop-menu-item[data-name="团队管理"]').count()==(0 if target==PERSONAL else 1) and page.locator('.pop-menu-item').count()==(5 if target==PERSONAL else 6))
+             check(prefix+'无障碍状态包含成功目标',page.inner_text('#space-switch-status')=='已切换到'+expected)
+@@ -188,11 +189,11 @@
+         ctx,page=legacy.fresh(browser,url,width,height)
+         page.evaluate('(id)=>__creatorScoutStore.switchSpace(id)',PERSONAL)
+         legacy.open_pop(page,keyboard=True);instrument(page)
+-        top=rect(page,'.account-popover')['y'];button=rect(page,'.switch-btn')
++        bottom=rect(page,'.account-popover')['bottom']
+         prefix=f'{width}×{height} 从个人开始：'
+         for target in [TEAM,PERSONAL,TEAM]:
+             begin(page,keyboard=True);finish(page)
+-            check(prefix+target+' 顶部/按钮不跳且不出屏',abs(rect(page,'.account-popover')['y']-top)<.1 and same_box(button,rect(page,'.switch-btn')) and in_view(page,'.account-popover'))
++            check(prefix+target+' 底边贴入口8px且不出屏',abs(rect(page,'.account-popover')['bottom']-bottom)<.1 and abs(rect(page,'#account-entry')['y']-rect(page,'.account-popover')['bottom']-8)<.1 and in_view(page,'.account-popover'))
+             check(prefix+target+' 提示可见且不盖浮窗',page.locator('.switch-hint').is_visible() and in_view(page,'.switch-hint') and compact.no_overlap(page,'.switch-hint','.account-popover'))
+         if height<500:
+             page.locator('.pop-menu-item--logout').focus()

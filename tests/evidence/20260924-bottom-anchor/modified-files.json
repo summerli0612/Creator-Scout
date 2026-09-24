@@ -1,0 +1,4 @@
+[
+  "js/app.js",
+  "tests/verify-switch-continuity.py"
+]

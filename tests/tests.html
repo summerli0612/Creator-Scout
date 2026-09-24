@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Scout 首页原型 · 测试</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { overflow: auto; background: #0F1115; }
+    .test-page { max-width: 1600px; margin: 0 auto; padding: 32px 40px 80px; }
+    .test-page h1 { font-size: 18px; font-weight: 500; color: #E8EAF0; margin-bottom: 4px; }
+    .test-page .test-desc { font-size: 12px; color: #8F96A3; margin-bottom: 24px; }
+    .results { margin-bottom: 40px; border: 1px solid #343741; border-radius: 8px; background: #14161B; }
+    .results-header { padding: 12px 16px; border-bottom: 1px solid #343741; font-size: 14px; color: #E8EAF0; }
+    .result-item { display: flex; gap: 10px; padding: 8px 16px; font-size: 13px; line-height: 20px; border-bottom: 1px solid #1E2128; }
+    .result-item:last-child { border-bottom: none; }
+    .result-pass { color: #55D9B4; }
+    .result-fail { color: #E7949D; }
+    .result-name { color: #E8EAF0; }
+    .result-msg { color: #9CA3B1; }
+    .fixture-board { display: flex; flex-wrap: wrap; gap: 32px; padding: 48px; background: #0F1115; border: 1px solid #343741; border-radius: 8px; }
+    .fixture-cell { position: relative; padding-top: 28px; }
+    .fixture-cell .cell-label { position: absolute; top: 0; left: 0; font-size: 12px; color: #8F96A3; }
+    .board-title { font-size: 14px; font-weight: 500; color: #E8EAF0; margin: 0 0 16px; }
+  </style>
+</head>
+<body>
+  <div class="test-page">
+    <h1>Creator Scout 独立首页原型 · 自动测试</h1>
+    <p class="test-desc">
+      覆盖：账户浮窗四态（含管理员）显隐与顺序矩阵、空间数据隔离、草稿按空间/会话隔离与恢复、
+      首次进入空白与再次进入恢复、选择当前空间不清空、快速切换与旧响应晚到不串空间、
+      切换失败保留与重试、草稿落盘失败阻止切换、损坏存储安全默认、退出登录状态。
+      全部为本地演示逻辑测试，不代表真实服务链路。
+    </p>
+    <div class="results" id="results">
+      <div class="results-header"><span id="summary">运行中…</span></div>
+      <div id="result-list"></div>
+    </div>
+
+    <p class="board-title">264px 紧凑四态浮窗对照板（含管理员；用于本地规则检查，不代表最新 Figma 对照通过）</p>
+    <div class="fixture-board" id="fixture-board"></div>
+  </div>
+
+  <!-- 浮窗 DOM 测试的挂载点（不可见容器） -->
+  <div id="dom-mount" style="position:absolute; left:-9999px; top:0;"></div>
+
+  <script src="../js/fixtures.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>

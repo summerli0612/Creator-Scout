@@ -1,0 +1,418 @@
+--- before/js/app.js
++++ after/js/app.js
+@@ -5,7 +5,7 @@
+  *   - 浮窗：点击账户入口开关；点击外部 / Esc 关闭；切换期间锁定重复操作。
+  *   - 空间切换：点击浮窗切换按钮直接切换到另一空间（账号最多一个个人空间 +
+  *     一个团队空间，二者互切，无需选择列表）；切换中锁定并显示「切换中…」；
+- *     成功后关浮窗；失败保留原空间与输入并提供重试。
++ *     成功后原位保留浮窗；失败保留原空间与输入并提供重试。
+  *   - 未接入功能：统一轻提示，保持当前页面，不伪造成功结果。
+  *   - 退出登录：先二次确认；取消保持原状态；确认仅结束本地演示登录。
+  */
+@@ -16,6 +16,70 @@
+   var UI = global.UI;
+   var store = Store.create();
+   var disposeSwitchHint = null;
++  var switchErrorToast = null;
++  var lastPageKey = null;
++  var popoverMaximumHeight = 0;
++
++  function pageKey() {
++    var state = store.getState();
++    return JSON.stringify([state.signedOut, state.currentSpaceId, store.getActiveConversationId(), store.getActiveDraftId()]);
++  }
++
++  function announceSpace(message) {
++    var status = document.getElementById('space-switch-status');
++    if (!status) {
++      status = document.createElement('div');
++      status.id = 'space-switch-status';
++      status.setAttribute('role', 'status');
++      status.setAttribute('aria-live', 'polite');
++      status.setAttribute('aria-atomic', 'true');
++      status.style.cssText = 'position:fixed;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;pointer-events:none;';
++      document.body.appendChild(status);
++    }
++    status.textContent = message;
++  }
++
++  function popoverModel(spaceType) {
++    return UI.computePopoverModel({ account: store.getAccount(), team: store.getTeam(),
++      membershipRole: store.getMembershipRole(), currentSpaceType: spaceType || store.getCurrentSpace().type });
++  }
++
++  // 打开时测量可切换状态中的最大自然高度，只用于定位；不设置固定高度或菜单占位。
++  function measurePopoverMaximum(el) {
++    var probe = document.createElement('div');
++    probe.className = 'account-popover';
++    probe.setAttribute('aria-hidden', 'true');
++    probe.setAttribute('inert', '');
++    probe.style.cssText = 'visibility:hidden;pointer-events:none;left:-10000px;top:0;bottom:auto;height:auto;max-height:none;animation:none;';
++    probe.style.width = global.getComputedStyle(el).width;
++    document.body.appendChild(probe);
++    var maximum = 0;
++    try {
++      (store.getTeam() ? ['personal', 'team'] : ['personal']).forEach(function (type) {
++        probe.innerHTML = UI.popoverAccountHTML(popoverModel(type), {});
++        maximum = Math.max(maximum, probe.offsetHeight);
++      });
++    } finally { probe.remove(); }
++    return maximum;
++  }
++
++  function positionPopover() {
++    var el = document.querySelector('#popover-root .account-popover');
++    if (!el) return;
++    var viewport = global.visualViewport;
++    var topEdge = (viewport ? viewport.offsetTop : 0) + 12;
++    var viewportBottom = (viewport ? viewport.offsetTop + viewport.height : global.innerHeight) - 12;
++    var entry = document.getElementById('account-entry');
++    var bottomEdge = Math.min(viewportBottom, entry ? entry.getBoundingClientRect().top - 8 : viewportBottom);
++    bottomEdge = Math.max(topEdge, bottomEdge);
++    var top = Math.max(topEdge, bottomEdge - popoverMaximumHeight);
++    // 顶部与切换按钮稳定；缺少团队管理时仅下边缘缩短。窗口缩放时重新约束。
++    el.style.top = Math.round(top) + 'px';
++    el.style.bottom = 'auto';
++    el.style.maxHeight = Math.max(0, bottomEdge - top) + 'px';
++    if (disposeSwitchHint && disposeSwitchHint.update) disposeSwitchHint.update();
++  }
++
+ 
+   function clearSwitchHint() {
+     if (disposeSwitchHint) disposeSwitchHint();
+@@ -76,6 +140,7 @@
+   // ---------------- 渲染 ----------------
+   function renderAll() {
+     var previousFocus = capturePageFocus();
++    lastPageKey = pageKey();
+     var state = store.getState();
+     var app = document.getElementById('app');
+     var signedOut = document.getElementById('signed-out');
+@@ -96,41 +161,59 @@
+   }
+ 
+   function renderPopover() {
+-    clearSwitchHint();
+     var root = document.getElementById('popover-root');
+-    var old = root.querySelector('.account-popover');
+-    var hadFocus = old && old.contains(document.activeElement);
+-    var oldScroll = old ? old.scrollTop : 0;
+-    if (hadFocus && document.activeElement.matches('button')) {
+-      appState.popoverFocusKey = { action: document.activeElement.dataset.action, name: document.activeElement.dataset.name };
+-    }
+     var entry = document.getElementById('account-entry');
+     if (entry) entry.setAttribute('aria-expanded', appState.popoverOpen ? 'true' : 'false');
+-    if (!appState.popoverOpen) { root.innerHTML = ''; return; }
+-
+-    var el = document.createElement('div');
+-    el.className = 'account-popover';
+-    el.setAttribute('role', 'dialog');
+-    el.setAttribute('aria-label', '账户菜单');
+-    el.tabIndex = -1; // 切换中按钮禁用时，焦点仍有一个有效停留位置。
+-    el.setAttribute('aria-busy', store.isSwitching() ? 'true' : 'false');
+-    var model = UI.computePopoverModel({
+-      account: store.getAccount(),
+-      team: store.getTeam(),
+-      membershipRole: store.getMembershipRole(),
+-      currentSpaceType: store.getCurrentSpace().type
+-    });
+-    el.innerHTML = UI.popoverAccountHTML(model, { switching: store.isSwitching(), hintId: 'space-switch-hint' });
+-    root.innerHTML = '';
+-    root.appendChild(el);
+-    disposeSwitchHint = UI.attachSwitchHint(el, root);
+-    if (hadFocus) {
++    if (!appState.popoverOpen) {
++      clearSwitchHint();
++      root.innerHTML = '';
++      popoverMaximumHeight = 0;
++      return;
++    }
++    var el = root.querySelector('.account-popover');
++    var busy = store.isSwitching();
++    if (!el) {
++      el = document.createElement('div');
++      el.className = 'account-popover';
++      el.setAttribute('role', 'dialog');
++      el.setAttribute('aria-label', '账户菜单');
++      el.tabIndex = -1;
++      el.innerHTML = UI.popoverAccountHTML(popoverModel(), { switching: busy, hintId: 'space-switch-hint' });
++      el.dataset.spaceId = store.getState().currentSpaceId;
++      root.appendChild(el);
++      popoverMaximumHeight = measurePopoverMaximum(el);
++      positionPopover();
++      disposeSwitchHint = UI.attachSwitchHint(el, root);
++    }
++    var active = document.activeElement;
++    var hadFocus = el.contains(active);
++    var wasBusy = el.getAttribute('aria-busy') === 'true';
++    var oldScroll = el.scrollTop;
++    if (hadFocus && active.matches('button')) {
++      appState.popoverFocusKey = { action: active.dataset.action, name: active.dataset.name };
++    }
++    if (el.dataset.spaceId !== store.getState().currentSpaceId) {
++      UI.updatePopoverSpace(el, popoverModel());
++      el.dataset.spaceId = store.getState().currentSpaceId;
++    }
++    // busy 只更新已有节点；切换起始/失败都不重绘背景，也不重播入场动画。
++    if (busy && hadFocus && active.matches('button')) el.focus({ preventScroll: true });
++    el.setAttribute('aria-busy', busy ? 'true' : 'false');
++    Array.prototype.forEach.call(el.querySelectorAll('button'), function (button) { button.disabled = busy; });
++    var hint = root.querySelector('.switch-hint');
++    if (hint) {
++      hint.classList.toggle('is-busy', busy);
++      hint.setAttribute('role', busy ? 'status' : 'tooltip');
++      hint.textContent = busy ? '切换中…' : '切换空间';
++    }
++    if (!busy && hadFocus && ((wasBusy && active === el) || !active.isConnected)) {
+       var buttons = popoverButtons(el);
+       var key = appState.popoverFocusKey;
+-      var target = key && buttons.filter(function (btn) { return btn.dataset.action === key.action && btn.dataset.name === key.name; })[0];
++      var target = key && buttons.filter(function (button) { return button.dataset.action === key.action && button.dataset.name === key.name; })[0];
+       (target || buttons[0] || el).focus({ preventScroll: true });
+-      el.scrollTop = oldScroll;
+-    }
++    }
++    el.scrollTop = oldScroll;
++    positionPopover();
+   }
+ 
+   function openPopover(fromKeyboard) {
+@@ -152,20 +235,27 @@
+   // ---------------- 空间切换 ----------------
+   function handleSwitchResult(result, targetSpaceId) {
+     if (result.ok) {
+-      var root = document.getElementById('popover-root');
+-      closePopover(root.contains(document.activeElement));
++      // 成功只宣布结果；不关闭、不重开浮窗，也不夺取外部焦点。
++      announceSpace('已切换到' + store.getCurrentSpace().name);
+       return;
+     }
+     if (result.stale) return; // 旧请求被更新的切换取代，不做任何界面变化
+     // 失败：保留原空间与输入，提供重试
+-    UI.showToast('切换空间失败，已保留当前空间与输入。', {
++    switchErrorToast = UI.showToast('切换空间失败，已保留当前空间与输入。', {
+       actionLabel: '重试',
+-      onAction: function () { focusAccountEntry(); requestSwitch(targetSpaceId); }
++      onAction: function () {
++        var button = document.querySelector('#popover-root .switch-btn');
++        if (appState.popoverOpen && button) button.focus({ preventScroll: true });
++        else focusAccountEntry();
++        requestSwitch(targetSpaceId);
++      }
+     });
+   }
+ 
+   function requestSwitch(targetSpaceId) {
+     if (store.isSwitching()) return;
++    if (switchErrorToast) { switchErrorToast.close(); switchErrorToast = null; }
++    announceSpace('');
+     store.switchSpace(targetSpaceId).then(function (result) {
+       handleSwitchResult(result, targetSpaceId);
+     });
+@@ -208,7 +298,6 @@
+     var entry = e.target.closest('.account-entry');
+     if (!entry) return;
+     e.stopPropagation();
+-    if (store.isSwitching()) return; // 切换中锁定
+     if (appState.popoverOpen) closePopover(e.detail === 0);
+     else openPopover(e.detail === 0);
+   }
+@@ -216,6 +305,7 @@
+   function onPopoverClick(e) {
+     var btn = e.target.closest('button');
+     if (!btn) return;
++    if (btn.disabled || store.isSwitching()) return;
+     if (btn.dataset.action === 'switch-space') {
+       // 直接切换：无需选择列表
+       if (store.isSwitching()) return;
+@@ -265,6 +355,8 @@
+ 
+   function onDocumentClick(e) {
+     if (!appState.popoverOpen) return;
++    // 重试属于当前切换操作；toast 会先移除自身，仍可由事件原始目标识别。
++    if (e.target.closest('.toast-action')) return;
+     if (e.target.closest('.account-popover')) return;
+     if (e.target.closest('#account-entry') || e.target.closest('.account-entry')) return;
+     closePopover();
+@@ -304,6 +396,11 @@
+     document.getElementById('topbar').addEventListener('click', onConversationClick);
+     document.addEventListener('click', onDocumentClick);
+     document.addEventListener('keydown', onDocumentKeydown);
++    global.addEventListener('resize', positionPopover);
++    if (global.visualViewport) {
++      global.visualViewport.addEventListener('resize', positionPopover);
++      global.visualViewport.addEventListener('scroll', positionPopover);
++    }
+ 
+     document.getElementById('reenter-btn').addEventListener('click', function () {
+       store.reenterDemo();
+@@ -315,7 +412,8 @@
+     global.addEventListener('pagehide', function () { store.flushDrafts().catch(function () {}); });
+ 
+     store.onChange(function () {
+-      renderAll();
++      // 只有空间/会话/草稿位置或登录态改变才更新主页面；busy/失败事件不替换背景DOM。
++      if (lastPageKey !== pageKey()) renderAll();
+       if (appState.popoverOpen) renderPopover();
+     });
+ 
+--- before/js/ui.js
++++ after/js/ui.js
+@@ -144,6 +144,35 @@
+       '<img src="' + icon('icon-logout.svg') + '" alt=""><span>退出登录</span></button>';
+     h += '</div>';
+     return h;
++  }
++
++  /** 空间成功切换时只替换相关信息，保留外框、账号区、切换按钮和未变化的菜单节点。 */
++  function updatePopoverSpace(popover, model) {
++    var template = document.createElement('div');
++    template.innerHTML = popoverAccountHTML(model, {});
++    var row = popover.querySelector('.space-row');
++    var nextRow = template.querySelector('.space-row');
++    if (row && nextRow) {
++      var avatar = row.querySelector('.space-avatar, .space-icon');
++      var nextAvatar = nextRow.querySelector('.space-avatar, .space-icon');
++      if (avatar && nextAvatar) avatar.replaceWith(nextAvatar);
++      // 名称与标签按目标空间更新；右侧同一个切换按钮完全不动。
++      row.querySelector('.space-meta').innerHTML = nextRow.querySelector('.space-meta').innerHTML;
++    }
++    var menu = popover.querySelector('.pop-menu[aria-label="空间功能"]');
++    var nextMenu = template.querySelector('.pop-menu[aria-label="空间功能"]');
++    var desired = Array.prototype.slice.call(nextMenu.children);
++    var names = desired.map(function (item) { return item.dataset.name; });
++    Array.prototype.slice.call(menu.children).forEach(function (item) {
++      if (names.indexOf(item.dataset.name) === -1) item.remove();
++    });
++    desired.forEach(function (item, index) {
++      var existing = Array.prototype.slice.call(menu.children).filter(function (child) {
++        return child.dataset.name === item.dataset.name;
++      })[0];
++      var node = existing || item;
++      if (menu.children[index] !== node) menu.insertBefore(node, menu.children[index] || null);
++    });
+   }
+ 
+   /**
+@@ -219,7 +248,7 @@
+       viewport.addEventListener('scroll', schedule);
+     }
+     update();
+-    return function () {
++    function dispose() {
+       disposed = true;
+       if (frame !== null) global.cancelAnimationFrame(frame);
+       events.forEach(function (name) { button.removeEventListener(name, schedule); });
+@@ -231,7 +260,10 @@
+         viewport.removeEventListener('scroll', schedule);
+       }
+       hint.remove();
+-    };
++    }
++    // 原位更新忙碌文案或布局时复用同一提示，不重建按钮及监听器。
++    dispose.update = update;
++    return dispose;
+   }
+ 
+   /* ------------------------------------------------------------------
+@@ -508,6 +540,7 @@
+     ICONS: ICONS,
+     computePopoverModel: computePopoverModel,
+     popoverAccountHTML: popoverAccountHTML,
++    updatePopoverSpace: updatePopoverSpace,
+     attachSwitchHint: attachSwitchHint,
+     renderSidebar: renderSidebar,
+     renderTopbar: renderTopbar,
+--- before/tests/verify-compact-popover.py
++++ after/tests/verify-compact-popover.py
+@@ -122,7 +122,7 @@
+     page.mouse.move(1000,700)
+     check('切换中外置反馈保留且不盖名字',page.locator('.switch-hint.is-busy').is_visible() and no_overlap(page,'.switch-hint','.account-popover'))
+     page.wait_for_function('() => !__creatorScoutStore.isSwitching()')
+-    check('切换完成提示节点清理',page.locator('.switch-hint').count()==0)
++    check('切换完成浮窗保留、忙碌提示恢复为普通按钮提示',page.locator('.account-popover').count()==1 and page.locator('.switch-hint.is-busy').count()==0 and page.locator('.switch-hint').count()==1)
+     for _ in range(6):
+         legacy.open_pop(page,keyboard=True);page.wait_for_selector('.switch-hint',state='visible')
+         page.keyboard.press('Escape')
+--- before/tests/verify-local-fix.py
++++ after/tests/verify-local-fix.py
+@@ -62,9 +62,10 @@
+ 
+ 
+ def switch(page, expected):
+-    open_pop(page)
++    if not page.locator('.account-popover').count():
++        open_pop(page)
+     page.locator('.switch-btn').click()
+-    page.wait_for_function('(expected) => __creatorScoutStore.getState().currentSpaceId === expected && !__creatorScoutStore.isSwitching() && !document.querySelector(".account-popover")', arg=expected)
++    page.wait_for_function('(expected) => __creatorScoutStore.getState().currentSpaceId === expected && !__creatorScoutStore.isSwitching() && !!document.querySelector(".account-popover")', arg=expected)
+ 
+ 
+ def height(page):
+@@ -265,8 +266,8 @@
+     check('切换中：全部菜单与切换按钮锁定', page.locator('.account-popover button').evaluate_all('es=>es.every(e=>e.disabled)'))
+     page.keyboard.press('Tab')
+     check('切换中：Tab 不落入禁用或已删除节点',page.evaluate("document.activeElement.matches('.account-popover')"))
+-    page.wait_for_function('() => !__creatorScoutStore.isSwitching() && !document.querySelector(".account-popover")')
+-    check('键盘切换成功：焦点回到当前账户入口',page.evaluate("document.activeElement.id==='account-entry'"))
++    page.wait_for_function('() => !__creatorScoutStore.isSwitching() && !!document.querySelector(".account-popover")')
++    check('键盘切换成功：浮窗保留且焦点留在切换按钮',page.evaluate("document.activeElement.matches('.switch-btn')"))
+     page.evaluate('() => __creatorScoutStore.__resetTransport()')
+     switch(page,TEAM)
+     check('切换往返后原输入保留',page.input_value('textarea')=='切换时保留')
+--- before/tests/verify.py
++++ after/tests/verify.py
+@@ -139,12 +139,11 @@
+         check("切换后显示个人空间最近会话", recents == ["PetPal Essentials", "HomeCafe Lab"], str(recents))
+         entry = page.inner_text("#sidebar-account")
+         check("个人空间账户入口：账号不变、空间为个人空间", "林小满" in entry and "个人空间" in entry and "Northstar" not in entry, entry.replace("\n", " / "))
+-        check("切换后浮窗关闭", page.locator(".account-popover").count() == 0)
++        check("切换后浮窗原位保留", page.locator(".account-popover").count() == 1)
+         check("首次进入个人空间为空白会话", "新会话" in page.inner_text("#topbar") and page.input_value(".composer textarea") == "")
+         shot(page, "home-personal-1440.png")
+ 
+-        # 个人空间浮窗：无团队管理
+-        page.click("#account-entry")
++        # 个人空间浮窗原位保留：无需重新打开，无团队管理
+         page.wait_for_selector(".account-popover")
+         page.wait_for_timeout(250)  # 等待入场动画结束
+         pop_text = page.inner_text(".account-popover")
+@@ -178,8 +177,7 @@
+         check("团队空白会话草稿恢复", page.input_value(".composer textarea") == "团队空间的未发送输入ABC123",
+               page.input_value(".composer textarea"))
+ 
+-        # 再次切到个人空间（直接切换），验证会话位置与草稿恢复
+-        page.click("#account-entry")
++        # 再次在同一浮窗切到个人空间，验证会话位置与草稿恢复
+         page.wait_for_selector(".account-popover")
+         page.click(".switch-btn")
+         page.wait_for_function(
+@@ -206,15 +204,16 @@
+         check("切换中提示常显（不依赖悬停）", page.is_visible(".switch-hint.is-busy"))
+         check("切换中切换按钮被锁定", page.locator(".switch-btn[disabled]").count() == 1)
+         check("切换中菜单项被锁定", page.locator(".pop-menu-item").count() > 0 and page.locator(".pop-menu-item[disabled]").count() == page.locator(".pop-menu-item").count())
+-        # 切换中再次点击账户入口不响应（锁定重复操作）
++        # 切换中仍可主动关闭；完成回调不得重新打开
+         page.click("#account-entry", force=True)
+         page.wait_for_timeout(100)
+-        check("切换中账户入口不重复打开/关闭浮窗", page.locator(".account-popover").count() == 1)
++        check("切换中账户入口允许主动关闭浮窗", page.locator(".account-popover").count() == 0)
+         page.wait_for_function(
+             "() => [...document.querySelectorAll('.nav-item[data-project-id] .nav-label')].map(e=>e.textContent).join(',') === 'Aurora Skincare,TrailBrew Outdoor'",
+             timeout=5000,
+         )
+         check("慢传输切换最终成功", True)
++        check("主动关闭后切换完成不重开", page.locator(".account-popover").count() == 0)
+         page.evaluate("() => window.__creatorScoutStore.__resetTransport()")
+ 
+         # ---- 切换失败：保留原空间与输入，toast 提供重试 ----
+@@ -244,8 +243,7 @@
+               page.input_value(".composer textarea"))
+         check("重试后原空间（团队）输入按空间隔离保留",
+               page.evaluate("() => window.__creatorScoutStore.getDraft('sp-team-northstar', '__blank__')") == "失败场景下不能丢的输入")
+-        # 切回团队，恢复演示默认态（直接切换）
+-        page.click("#account-entry")
++        # 重试成功后浮窗保留，直接切回团队
+         page.wait_for_selector(".account-popover")
+         page.click(".switch-btn")
+         page.wait_for_function(

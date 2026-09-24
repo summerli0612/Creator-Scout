@@ -1,0 +1,9 @@
+[
+  "README.md",
+  "css/styles.css",
+  "js/app.js",
+  "js/ui.js",
+  "tests/verify-local-fix.py",
+  "tests/verify.py",
+  "tests/tests.html"
+]

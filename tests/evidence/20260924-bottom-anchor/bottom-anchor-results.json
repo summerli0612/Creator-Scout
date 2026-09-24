@@ -1,0 +1,3701 @@
+{
+  "passed": 416,
+  "failed": 0,
+  "results": [
+    {
+      "name": "1440 团队打开时底部8px",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 切换成功保留同节点并恢复自然高度",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 全部过渡帧及结束都保持8px间距",
+      "pass": true,
+      "detail": [
+        {
+          "t": 331.5,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 348.1,
+          "height": 384.96875,
+          "top": 555.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 634.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 364.8,
+          "height": 374.546875,
+          "top": 565.453125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 644.453125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.453125,
+          "overlap": false
+        },
+        {
+          "t": 381.5,
+          "height": 366.46875,
+          "top": 573.53125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 652.53125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.46875,
+          "overlap": false
+        },
+        {
+          "t": 398.1,
+          "height": 360.5,
+          "top": 579.5,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 658.5,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.5,
+          "overlap": false
+        },
+        {
+          "t": 414.9,
+          "height": 356.3125,
+          "top": 583.6875,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 662.6875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.3125,
+          "overlap": false
+        },
+        {
+          "t": 431.5,
+          "height": 353.5625,
+          "top": 586.4375,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 665.4375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.4375,
+          "overlap": false
+        },
+        {
+          "t": 448.1,
+          "height": 351.984375,
+          "top": 588.015625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.015625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.015625,
+          "overlap": false
+        },
+        {
+          "t": 464.8,
+          "height": 351.234375,
+          "top": 588.765625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.765625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.234375,
+          "overlap": false
+        },
+        {
+          "t": 481.5,
+          "height": 351.015625,
+          "top": 588.984375,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.984375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.015625,
+          "overlap": false
+        },
+        {
+          "t": 498.2,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 514.8,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 531.4,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "name": "1440/sp-personal-lin: 有多个真实中间高度帧，不是瞬跳",
+      "pass": true,
+      "detail": [
+        389,
+        384.96875,
+        374.546875,
+        366.46875,
+        360.5,
+        356.3125,
+        353.5625,
+        351.984375,
+        351.234375,
+        351.015625,
+        351,
+        351,
+        351
+      ]
+    },
+    {
+      "name": "1440/sp-personal-lin: 高度单向收放无超调",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 宽度264、按钮32不缩放也不横跳",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 按钮跟随上边缘移动38px",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 键盘焦点一直留在切换按钮",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 外置提示逐帧跟随且不遮挡浮窗",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 动画结束不残留固定高度或overflow覆盖",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-personal-lin: 没有重播入场动画或成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 切换成功保留同节点并恢复自然高度",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 全部过渡帧及结束都保持8px间距",
+      "pass": true,
+      "detail": [
+        {
+          "t": 631.5,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 648.1,
+          "height": 354.734375,
+          "top": 585.265625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 664.265625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.265625,
+          "overlap": false
+        },
+        {
+          "t": 664.8,
+          "height": 365.21875,
+          "top": 574.78125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 653.78125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.21875,
+          "overlap": false
+        },
+        {
+          "t": 681.5,
+          "height": 373.34375,
+          "top": 566.65625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 645.65625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.34375,
+          "overlap": false
+        },
+        {
+          "t": 698.2,
+          "height": 379.375,
+          "top": 560.625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 639.625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.375,
+          "overlap": false
+        },
+        {
+          "t": 714.8,
+          "height": 383.609375,
+          "top": 556.390625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 635.390625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.390625,
+          "overlap": false
+        },
+        {
+          "t": 731.5,
+          "height": 386.359375,
+          "top": 553.640625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 632.640625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.359375,
+          "overlap": false
+        },
+        {
+          "t": 748.1,
+          "height": 387.96875,
+          "top": 552.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 631.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 764.8,
+          "height": 388.734375,
+          "top": 551.265625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630.265625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.265625,
+          "overlap": false
+        },
+        {
+          "t": 781.4,
+          "height": 388.96875,
+          "top": 551.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 798.2,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 814.8,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 831.5,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "name": "1440/sp-team-northstar: 有多个真实中间高度帧，不是瞬跳",
+      "pass": true,
+      "detail": [
+        351,
+        354.734375,
+        365.21875,
+        373.34375,
+        379.375,
+        383.609375,
+        386.359375,
+        387.96875,
+        388.734375,
+        388.96875,
+        389,
+        389,
+        389
+      ]
+    },
+    {
+      "name": "1440/sp-team-northstar: 高度单向收放无超调",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 宽度264、按钮32不缩放也不横跳",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 按钮跟随上边缘移动38px",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 键盘焦点一直留在切换按钮",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 外置提示逐帧跟随且不遮挡浮窗",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 动画结束不残留固定高度或overflow覆盖",
+      "pass": true
+    },
+    {
+      "name": "1440/sp-team-northstar: 没有重播入场动画或成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440 个人状态重新打开仍是8px且351高",
+      "pass": true
+    },
+    {
+      "name": "1280 团队打开时底部8px",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 切换成功保留同节点并恢复自然高度",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 全部过渡帧及结束都保持8px间距",
+      "pass": true,
+      "detail": [
+        {
+          "t": 310.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 327.5,
+          "height": 380.96875,
+          "top": 335.03125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 414.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 344.2,
+          "height": 371.4375,
+          "top": 344.5625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 423.5625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.4375,
+          "overlap": false
+        },
+        {
+          "t": 360.9,
+          "height": 364.140625,
+          "top": 351.859375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 430.859375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.140625,
+          "overlap": false
+        },
+        {
+          "t": 377.6,
+          "height": 358.828125,
+          "top": 357.171875,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 436.171875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.171875,
+          "overlap": false
+        },
+        {
+          "t": 394.2,
+          "height": 355.171875,
+          "top": 360.828125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 439.828125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.171875,
+          "overlap": false
+        },
+        {
+          "t": 410.9,
+          "height": 352.890625,
+          "top": 363.109375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 442.109375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.109375,
+          "overlap": false
+        },
+        {
+          "t": 427.5,
+          "height": 351.640625,
+          "top": 364.359375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 443.359375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.359375,
+          "overlap": false
+        },
+        {
+          "t": 444.2,
+          "height": 351.109375,
+          "top": 364.890625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 443.890625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.109375,
+          "overlap": false
+        },
+        {
+          "t": 460.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 477.5,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 494.3,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 510.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 527.6,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "name": "1280/sp-personal-lin: 有多个真实中间高度帧，不是瞬跳",
+      "pass": true,
+      "detail": [
+        389,
+        380.96875,
+        371.4375,
+        364.140625,
+        358.828125,
+        355.171875,
+        352.890625,
+        351.640625,
+        351.109375,
+        351,
+        351,
+        351,
+        351,
+        351
+      ]
+    },
+    {
+      "name": "1280/sp-personal-lin: 高度单向收放无超调",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 宽度264、按钮32不缩放也不横跳",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 按钮跟随上边缘移动38px",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 键盘焦点一直留在切换按钮",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 外置提示逐帧跟随且不遮挡浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 动画结束不残留固定高度或overflow覆盖",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-personal-lin: 没有重播入场动画或成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 切换成功保留同节点并恢复自然高度",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 全部过渡帧及结束都保持8px间距",
+      "pass": true,
+      "detail": [
+        {
+          "t": 594.2,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 610.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 627.6,
+          "height": 361.65625,
+          "top": 354.34375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 433.34375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.34375,
+          "overlap": false
+        },
+        {
+          "t": 644.2,
+          "height": 370.640625,
+          "top": 345.359375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 424.359375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.359375,
+          "overlap": false
+        },
+        {
+          "t": 660.9,
+          "height": 377.359375,
+          "top": 338.640625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 417.640625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.359375,
+          "overlap": false
+        },
+        {
+          "t": 677.6,
+          "height": 382.21875,
+          "top": 333.78125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 412.78125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.21875,
+          "overlap": false
+        },
+        {
+          "t": 694.2,
+          "height": 385.5,
+          "top": 330.5,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 409.5,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.5,
+          "overlap": false
+        },
+        {
+          "t": 710.9,
+          "height": 387.484375,
+          "top": 328.515625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 407.515625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.484375,
+          "overlap": false
+        },
+        {
+          "t": 727.5,
+          "height": 388.53125,
+          "top": 327.46875,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406.46875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.46875,
+          "overlap": false
+        },
+        {
+          "t": 744.2,
+          "height": 388.921875,
+          "top": 327.078125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406.078125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.078125,
+          "overlap": false
+        },
+        {
+          "t": 760.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 777.6,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 794.3,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 810.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "name": "1280/sp-team-northstar: 有多个真实中间高度帧，不是瞬跳",
+      "pass": true,
+      "detail": [
+        351,
+        351,
+        361.65625,
+        370.640625,
+        377.359375,
+        382.21875,
+        385.5,
+        387.484375,
+        388.53125,
+        388.921875,
+        389,
+        389,
+        389,
+        389
+      ]
+    },
+    {
+      "name": "1280/sp-team-northstar: 高度单向收放无超调",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 宽度264、按钮32不缩放也不横跳",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 按钮跟随上边缘移动38px",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 键盘焦点一直留在切换按钮",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 外置提示逐帧跟随且不遮挡浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 动画结束不残留固定高度或overflow覆盖",
+      "pass": true
+    },
+    {
+      "name": "1280/sp-team-northstar: 没有重播入场动画或成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280 个人状态重新打开仍是8px且351高",
+      "pass": true
+    },
+    {
+      "name": "close：验证发生于实际过渡中",
+      "pass": true
+    },
+    {
+      "name": "过渡中Esc关闭：不重开、不遗留提示或焦点",
+      "pass": true
+    },
+    {
+      "name": "关闭中断后重新打开：当前个人空间自然高且8px",
+      "pass": true
+    },
+    {
+      "name": "resize：验证发生于实际过渡中",
+      "pass": true
+    },
+    {
+      "name": "resize：过渡结束同节点、8px间距、无临时样式",
+      "pass": true
+    },
+    {
+      "name": "resize：窗口内控件仍可达",
+      "pass": true
+    },
+    {
+      "name": "过渡中缩小窗口后能滚动到退出",
+      "pass": true
+    },
+    {
+      "name": "reduce：验证发生于实际过渡中",
+      "pass": true
+    },
+    {
+      "name": "reduce：过渡结束同节点、8px间距、无临时样式",
+      "pass": true
+    },
+    {
+      "name": "reduce：窗口内控件仍可达",
+      "pass": true
+    },
+    {
+      "name": "tab：验证发生于实际过渡中",
+      "pass": true
+    },
+    {
+      "name": "tab：过渡结束同节点、8px间距、无临时样式",
+      "pass": true
+    },
+    {
+      "name": "tab：窗口内控件仍可达",
+      "pass": true
+    },
+    {
+      "name": "reverse：验证发生于实际过渡中",
+      "pass": true
+    },
+    {
+      "name": "reverse：过渡结束同节点、8px间距、无临时样式",
+      "pass": true
+    },
+    {
+      "name": "reverse：窗口内控件仍可达",
+      "pass": true
+    },
+    {
+      "name": "过渡中反向切换：最终团队389px，无丢失或多余重绘",
+      "pass": true
+    },
+    {
+      "name": "减少动态效果：直接自然高度，无过渡仍贴8px",
+      "pass": true
+    },
+    {
+      "name": "320/sp-personal-lin 小窗口底部8px、上方不出屏",
+      "pass": true
+    },
+    {
+      "name": "320/sp-personal-lin 限高时仍滚动、不强做高度动画",
+      "pass": true
+    },
+    {
+      "name": "320/sp-team-northstar 小窗口底部8px、上方不出屏",
+      "pass": true
+    },
+    {
+      "name": "320/sp-team-northstar 限高时仍滚动、不强做高度动画",
+      "pass": true
+    },
+    {
+      "name": "320 键盘到退出入口可见",
+      "pass": true
+    },
+    {
+      "name": "280/sp-personal-lin 小窗口底部8px、上方不出屏",
+      "pass": true
+    },
+    {
+      "name": "280/sp-personal-lin 限高时仍滚动、不强做高度动画",
+      "pass": true
+    },
+    {
+      "name": "280/sp-team-northstar 小窗口底部8px、上方不出屏",
+      "pass": true
+    },
+    {
+      "name": "280/sp-team-northstar 限高时仍滚动、不强做高度动画",
+      "pass": true
+    },
+    {
+      "name": "280 键盘到退出入口可见",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1440 第1次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1440 第2次：原团队草稿恢复",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1440 第3次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1440 第4次：原团队草稿恢复",
+      "pass": true
+    },
+    {
+      "name": "1440 成功后Tab顺序可继续操作",
+      "pass": true
+    },
+    {
+      "name": "1440 Esc主动关闭并回账户入口",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1280 第1次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1280 第2次：原团队草稿恢复",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1280 第3次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：busy阶段浮窗/账号/切换按钮/空间行都是原节点",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：busy阶段背景零重绘、输入与入口节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：忙碌时旧空间仍一致且禁用重复操作",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：重复点击不发出第二次请求",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：切换未提交时按钮坐标稳定",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：成功浮窗原位保留且关键节点不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：成功背景各区域只更新一次",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：目标空间、侧栏项目、浮窗信息同步",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：成功焦点在原切换按钮且账号信息不变",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：浮窗底边固定距入口8px，上边缘随自然高度变化",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：没有重播入场动画或弹成功toast",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：团队管理显隐与当前空间一致，不留空行",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：无障碍状态包含成功目标",
+      "pass": true
+    },
+    {
+      "name": "1280 第4次：原团队草稿恢复",
+      "pass": true
+    },
+    {
+      "name": "1280 成功后Tab顺序可继续操作",
+      "pass": true
+    },
+    {
+      "name": "1280 Esc主动关闭并回账户入口",
+      "pass": true
+    },
+    {
+      "name": "失败：浮窗/按钮/账号区保留同节点",
+      "pass": true
+    },
+    {
+      "name": "失败：背景不重绘，长输入、滚动不丢",
+      "pass": true
+    },
+    {
+      "name": "失败：原空间/位置保留且焦点回切换按钮",
+      "pass": true
+    },
+    {
+      "name": "重试点击属于浮窗操作，不触发外部关闭",
+      "pass": true
+    },
+    {
+      "name": "重试成功仍保留同一浮窗/按钮，不残留失败提示",
+      "pass": true
+    },
+    {
+      "name": "重试成功背景仅更新一次、焦点留原按钮",
+      "pass": true
+    },
+    {
+      "name": "切换后菜单可继续操作并保持当前空间",
+      "pass": true
+    },
+    {
+      "name": "outside/成功：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "outside/成功：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "outside/成功：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "outside/失败：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "outside/失败：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "outside/失败：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "escape/成功：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "escape/成功：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "escape/成功：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "escape/失败：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "escape/失败：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "escape/失败：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "account/成功：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "account/成功：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "account/成功：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "account/失败：进行中可以主动关闭",
+      "pass": true
+    },
+    {
+      "name": "account/失败：结果回调不重开、不抢焦点",
+      "pass": true
+    },
+    {
+      "name": "account/失败：数据按结果提交且源空间草稿仍在",
+      "pass": true
+    },
+    {
+      "name": "用户主动重新打开：展示同一个进行中的状态",
+      "pass": true
+    },
+    {
+      "name": "用户重新打开后：成功仍保留新打开的浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-personal-lin 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-personal-lin 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "1280×800 从个人开始：resize不重建浮窗且仍在屏内",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-personal-lin 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-personal-lin 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：键盘仍可滚动到最底项",
+      "pass": true
+    },
+    {
+      "name": "320×420 从个人开始：resize不重建浮窗且仍在屏内",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-personal-lin 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-personal-lin 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-team-northstar 底边贴入口8px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：sp-team-northstar 提示可见且不盖浮窗",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：键盘仍可滚动到最底项",
+      "pass": true
+    },
+    {
+      "name": "280×240 从个人开始：resize不重建浮窗且仍在屏内",
+      "pass": true
+    },
+    {
+      "name": "原浏览器内逻辑测试全部通过",
+      "pass": true,
+      "detail": "共 24 项：通过 24，失败 0 ✅"
+    },
+    {
+      "name": "1440: 外框264×389含边框，无固定高度",
+      "pass": true
+    },
+    {
+      "name": "1440: 昵称14px，菜单14/20/400",
+      "pass": true
+    },
+    {
+      "name": "1440: 账号区56、空间区60",
+      "pass": true
+    },
+    {
+      "name": "1440: 账号头像与空间头像均36，占位字均14",
+      "pass": true
+    },
+    {
+      "name": "1440: 账号/团队文字与头像左边缘分别对齐",
+      "pass": true
+    },
+    {
+      "name": "1440: 账号与空间图文间距均10",
+      "pass": true
+    },
+    {
+      "name": "1440: 菜单行高38、图标18、间距10、圆角6",
+      "pass": true
+    },
+    {
+      "name": "1440: 外框padding8、圆角8、无投影",
+      "pass": true
+    },
+    {
+      "name": "1440: 菜单亮度/背景/边框颜色保留",
+      "pass": true
+    },
+    {
+      "name": "1440: 空间名称字体栈与首页侧栏一致",
+      "pass": true
+    },
+    {
+      "name": "1440: 邮箱12、身份12、标签11、切换按钮32保留",
+      "pass": true
+    },
+    {
+      "name": "1440: 整体不溢出，未做zoom/scale",
+      "pass": true
+    },
+    {
+      "name": "1280: 外框264×389含边框，无固定高度",
+      "pass": true
+    },
+    {
+      "name": "1280: 昵称14px，菜单14/20/400",
+      "pass": true
+    },
+    {
+      "name": "1280: 账号区56、空间区60",
+      "pass": true
+    },
+    {
+      "name": "1280: 账号头像与空间头像均36，占位字均14",
+      "pass": true
+    },
+    {
+      "name": "1280: 账号/团队文字与头像左边缘分别对齐",
+      "pass": true
+    },
+    {
+      "name": "1280: 账号与空间图文间距均10",
+      "pass": true
+    },
+    {
+      "name": "1280: 菜单行高38、图标18、间距10、圆角6",
+      "pass": true
+    },
+    {
+      "name": "1280: 外框padding8、圆角8、无投影",
+      "pass": true
+    },
+    {
+      "name": "1280: 菜单亮度/背景/边框颜色保留",
+      "pass": true
+    },
+    {
+      "name": "1280: 空间名称字体栈与首页侧栏一致",
+      "pass": true
+    },
+    {
+      "name": "1280: 邮箱12、身份12、标签11、切换按钮32保留",
+      "pass": true
+    },
+    {
+      "name": "1280: 整体不溢出，未做zoom/scale",
+      "pass": true
+    },
+    {
+      "name": "creator-default: 四态同宽264且高度按内容自然缩短",
+      "pass": true,
+      "detail": {
+        "x": 12,
+        "y": 327,
+        "width": 264,
+        "height": 389,
+        "right": 276,
+        "bottom": 716,
+        "client": 262,
+        "scroll": 262
+      }
+    },
+    {
+      "name": "personal-with-team: 四态同宽264且高度按内容自然缩短",
+      "pass": true,
+      "detail": {
+        "x": 12,
+        "y": 365,
+        "width": 264,
+        "height": 351,
+        "right": 276,
+        "bottom": 716,
+        "client": 262,
+        "scroll": 262
+      }
+    },
+    {
+      "name": "personal-no-team: 四态同宽264且高度按内容自然缩短",
+      "pass": true,
+      "detail": {
+        "x": 12,
+        "y": 387,
+        "width": 264,
+        "height": 329,
+        "right": 276,
+        "bottom": 716,
+        "client": 262,
+        "scroll": 262
+      }
+    },
+    {
+      "name": "team-member: 四态同宽264且高度按内容自然缩短",
+      "pass": true,
+      "detail": {
+        "x": 12,
+        "y": 365,
+        "width": 264,
+        "height": 351,
+        "right": 276,
+        "bottom": 716,
+        "client": 262,
+        "scroll": 262
+      }
+    },
+    {
+      "name": "team-admin: 四态同宽264且高度按内容自然缩短",
+      "pass": true,
+      "detail": {
+        "x": 12,
+        "y": 327,
+        "width": 264,
+        "height": 389,
+        "right": 276,
+        "bottom": 716,
+        "client": 262,
+        "scroll": 262
+      }
+    },
+    {
+      "name": "提示独立在浮窗外，不属于滚动容器",
+      "pass": true
+    },
+    {
+      "name": "宽窗口提示右置，外框间隔8px",
+      "pass": true
+    },
+    {
+      "name": "提示不覆盖团队名称、标签、身份或浮窗",
+      "pass": true
+    },
+    {
+      "name": "提示ARIA引用仍指向真实节点",
+      "pass": true
+    },
+    {
+      "name": "悬停.space-avatar不显示提示",
+      "pass": true
+    },
+    {
+      "name": "悬停.space-name不显示提示",
+      "pass": true
+    },
+    {
+      "name": "悬停.space-role不显示提示",
+      "pass": true
+    },
+    {
+      "name": "320x800: 提示避让位置正确",
+      "pass": true
+    },
+    {
+      "name": "320x800: 提示和浮窗都在可视窗口内",
+      "pass": true
+    },
+    {
+      "name": "320x800: 提示不遮挡浮窗任何内容",
+      "pass": true
+    },
+    {
+      "name": "320x800: 关闭无残留提示、焦点回入口",
+      "pass": true
+    },
+    {
+      "name": "320x420: 提示避让位置正确",
+      "pass": true
+    },
+    {
+      "name": "320x420: 提示和浮窗都在可视窗口内",
+      "pass": true
+    },
+    {
+      "name": "320x420: 提示不遮挡浮窗任何内容",
+      "pass": true
+    },
+    {
+      "name": "320x420: 关闭无残留提示、焦点回入口",
+      "pass": true
+    },
+    {
+      "name": "280x240: 提示避让位置正确",
+      "pass": true
+    },
+    {
+      "name": "280x240: 提示和浮窗都在可视窗口内",
+      "pass": true
+    },
+    {
+      "name": "280x240: 提示不遮挡浮窗任何内容",
+      "pass": true
+    },
+    {
+      "name": "280x240: 关闭无残留提示、焦点回入口",
+      "pass": true
+    },
+    {
+      "name": "键盘滚动到底部后不会遗留旧提示",
+      "pass": true
+    },
+    {
+      "name": "切换中外置反馈保留且不盖名字",
+      "pass": true
+    },
+    {
+      "name": "切换完成浮窗保留、忙碌提示恢复为普通按钮提示",
+      "pass": true
+    },
+    {
+      "name": "重复打开/关闭没有重复节点",
+      "pass": true
+    },
+    {
+      "name": "首页：标题为用户确认文案",
+      "pass": true
+    },
+    {
+      "name": "首页：辅助说明为用户确认文案",
+      "pass": true
+    },
+    {
+      "name": "首页：示例仅为 placeholder",
+      "pass": true
+    },
+    {
+      "name": "首页：空输入原生禁用发送按钮",
+      "pass": true
+    },
+    {
+      "name": "首页：三栏提示和首次发送说明无节点/占位",
+      "pass": true
+    },
+    {
+      "name": "1440：输入区在可视区域内",
+      "pass": true
+    },
+    {
+      "name": "1440：未产生横向页面溢出",
+      "pass": true
+    },
+    {
+      "name": "浮窗总宽度准确为 264px 含边框",
+      "pass": true
+    },
+    {
+      "name": "浮窗默认无常驻切换提示",
+      "pass": true
+    },
+    {
+      "name": "仅按钮提示：悬停头像不显示",
+      "pass": true
+    },
+    {
+      "name": "仅按钮提示：悬停名称不显示",
+      "pass": true
+    },
+    {
+      "name": "仅按钮提示：悬停身份不显示",
+      "pass": true
+    },
+    {
+      "name": "仅按钮提示：悬停切换按钮显示",
+      "pass": true
+    },
+    {
+      "name": "提示本身未越出可视区域",
+      "pass": true
+    },
+    {
+      "name": "仅按钮提示：离开后隐藏",
+      "pass": true
+    },
+    {
+      "name": "Esc 关闭浮窗并回到账户入口",
+      "pass": true
+    },
+    {
+      "name": "键盘账户激活：焦点进入切换按钮",
+      "pass": true
+    },
+    {
+      "name": "键盘聚焦按钮显示提示及可见焦点",
+      "pass": true
+    },
+    {
+      "name": "浮窗 Tab 按 DOM 视觉顺序遍历并循环",
+      "pass": true,
+      "detail": {
+        "seen": [
+          "switch-space|",
+          "unavailable|用量与计费",
+          "unavailable|团队管理",
+          "unavailable|业务邮箱",
+          "unavailable|通知",
+          "unavailable|个人设置",
+          "logout|"
+        ],
+        "expected": [
+          "switch-space|",
+          "unavailable|用量与计费",
+          "unavailable|团队管理",
+          "unavailable|业务邮箱",
+          "unavailable|通知",
+          "unavailable|个人设置",
+          "logout|"
+        ]
+      }
+    },
+    {
+      "name": "浮窗 Shift+Tab 可反向循环到退出",
+      "pass": true
+    },
+    {
+      "name": "鼠标外部关闭不抢输入框焦点",
+      "pass": true
+    },
+    {
+      "name": "退出确认初始焦点有效：mouse",
+      "pass": true
+    },
+    {
+      "name": "退出取消焦点回到有效账户入口：mouse",
+      "pass": true
+    },
+    {
+      "name": "退出取消未丢输入：mouse",
+      "pass": true
+    },
+    {
+      "name": "退出确认初始焦点有效：escape",
+      "pass": true
+    },
+    {
+      "name": "退出取消焦点回到有效账户入口：escape",
+      "pass": true
+    },
+    {
+      "name": "退出取消未丢输入：escape",
+      "pass": true
+    },
+    {
+      "name": "1280：首页与输入操作无溢出",
+      "pass": true
+    },
+    {
+      "name": "1280：264px 浮窗不出屏",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "zh/creator-default：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-with-team：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-with-team：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-with-team：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-with-team：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-no-team：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-no-team：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-no-team：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "zh/personal-no-team：空间区不存在且分隔线紧邻账号区",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "zh/team-member：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "zh/team-admin：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "en/creator-default：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "en/personal-with-team：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "en/personal-with-team：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "en/personal-with-team：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "en/personal-with-team：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "en/personal-no-team：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "en/personal-no-team：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "en/personal-no-team：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "en/personal-no-team：空间区不存在且分隔线紧邻账号区",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "en/team-member：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：总宽264且内容不撑开",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：长昵称邮箱单行省略且保留全文 title",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：头像36及菜单行38准确且不被挤压",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：切换按钮32、空间头像36且无内部越界",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：团队长名称省略且 title 完整",
+      "pass": true
+    },
+    {
+      "name": "en/team-admin：空间标签和身份未折行或挤压按钮",
+      "pass": true
+    },
+    {
+      "name": "320x420：浮窗整体在窗口内",
+      "pass": true
+    },
+    {
+      "name": "320x420：高度受限且可滚动",
+      "pass": true
+    },
+    {
+      "name": "320x420：键盘可滚动到退出项",
+      "pass": true
+    },
+    {
+      "name": "300x300：浮窗整体在窗口内",
+      "pass": true
+    },
+    {
+      "name": "300x300：高度受限且可滚动",
+      "pass": true
+    },
+    {
+      "name": "300x300：键盘可滚动到退出项",
+      "pass": true
+    },
+    {
+      "name": "280x240：浮窗整体在窗口内",
+      "pass": true
+    },
+    {
+      "name": "280x240：高度受限且可滚动",
+      "pass": true
+    },
+    {
+      "name": "280x240：键盘可滚动到退出项",
+      "pass": true
+    },
+    {
+      "name": "主动新会话：输入为空且发送禁用",
+      "pass": true
+    },
+    {
+      "name": "主动新会话：旧版空白草稿仍保留",
+      "pass": true
+    },
+    {
+      "name": "空白输入：长文增长至220px上限并内部滚动",
+      "pass": true,
+      "detail": 220
+    },
+    {
+      "name": "空白输入：附件链接发送不被覆盖",
+      "pass": true
+    },
+    {
+      "name": "初到个人空间为空白，无团队草稿串入",
+      "pass": true
+    },
+    {
+      "name": "返回团队：恢复独立草稿ID及长输入",
+      "pass": true
+    },
+    {
+      "name": "返回团队：恢复后自动重算220px",
+      "pass": true
+    },
+    {
+      "name": "刷新后恢复独立草稿ID及长输入高度",
+      "pass": true
+    },
+    {
+      "name": "空白输入：删除后回落原初始高度",
+      "pass": true,
+      "detail": {
+        "initial": 48,
+        "after": 48
+      }
+    },
+    {
+      "name": "再次主动新会话：新ID、空白输入、旧草稿不丢",
+      "pass": true
+    },
+    {
+      "name": "个人空间返回恢复个人输入",
+      "pass": true
+    },
+    {
+      "name": "团队返回恢复最后活动草稿，不恢复最早草稿",
+      "pass": true
+    },
+    {
+      "name": "未发送草稿未加入最近或创建项目，历史正文与绑定不变",
+      "pass": true
+    },
+    {
+      "name": "历史会话：标题只有一处项目名且无重复说明",
+      "pass": true
+    },
+    {
+      "name": "历史输入：长文增长至180px上限",
+      "pass": true
+    },
+    {
+      "name": "历史输入：操作行在文字下且可见",
+      "pass": true
+    },
+    {
+      "name": "历史会话空间往返：恢复会话、正文和长草稿高度",
+      "pass": true
+    },
+    {
+      "name": "历史长草稿刷新恢复并重算高度",
+      "pass": true
+    },
+    {
+      "name": "历史输入：删除回落初始高度",
+      "pass": true,
+      "detail": {
+        "initial": 44,
+        "after": 44
+      }
+    },
+    {
+      "name": "纯空白不激活发送",
+      "pass": true
+    },
+    {
+      "name": "历史长项目名：省略且保留完整 title",
+      "pass": true
+    },
+    {
+      "name": "历史长项目名：进入项目按钮保持148px且不出屏",
+      "pass": true
+    },
+    {
+      "name": "进入项目仍只给未开放提示，不伪造工作区",
+      "pass": true
+    },
+    {
+      "name": "切换中：无需悬停仍有必要反馈",
+      "pass": true
+    },
+    {
+      "name": "切换中：焦点在存活节点而非已删除按钮",
+      "pass": true
+    },
+    {
+      "name": "切换中：全部菜单与切换按钮锁定",
+      "pass": true
+    },
+    {
+      "name": "切换中：Tab 不落入禁用或已删除节点",
+      "pass": true
+    },
+    {
+      "name": "键盘切换成功：浮窗保留且焦点留在切换按钮",
+      "pass": true
+    },
+    {
+      "name": "切换往返后原输入保留",
+      "pass": true
+    },
+    {
+      "name": "鼠标外部关闭：异步切换完成也不抢账户焦点",
+      "pass": true
+    },
+    {
+      "name": "范围保护 智能挖掘_任务详情_v9_demo.html",
+      "pass": true
+    },
+    {
+      "name": "范围保护 creator-scout-home/js/store.js",
+      "pass": true
+    },
+    {
+      "name": "范围保护 creator-scout-home/js/fixtures.js",
+      "pass": true
+    },
+    {
+      "name": "范围保护 creator-scout-home/index.html",
+      "pass": true
+    },
+    {
+      "name": "范围保护 creator-scout-home/assets/logo-dark-horizontal.svg",
+      "pass": true
+    },
+    {
+      "name": "范围保护 creator-scout-home/assets/favicon-discovery-20260924.svg",
+      "pass": true
+    },
+    {
+      "name": "运行范围保护 css/styles.css",
+      "pass": true
+    },
+    {
+      "name": "运行范围保护 js/ui.js",
+      "pass": true
+    },
+    {
+      "name": "无JavaScript运行时错误",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "frames": [
+    {
+      "viewport": [
+        1440,
+        1024
+      ],
+      "target": "sp-personal-lin",
+      "frames": [
+        {
+          "t": 331.5,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 348.1,
+          "height": 384.96875,
+          "top": 555.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 634.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 364.8,
+          "height": 374.546875,
+          "top": 565.453125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 644.453125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.453125,
+          "overlap": false
+        },
+        {
+          "t": 381.5,
+          "height": 366.46875,
+          "top": 573.53125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 652.53125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.46875,
+          "overlap": false
+        },
+        {
+          "t": 398.1,
+          "height": 360.5,
+          "top": 579.5,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 658.5,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.5,
+          "overlap": false
+        },
+        {
+          "t": 414.9,
+          "height": 356.3125,
+          "top": 583.6875,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 662.6875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.3125,
+          "overlap": false
+        },
+        {
+          "t": 431.5,
+          "height": 353.5625,
+          "top": 586.4375,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 665.4375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.4375,
+          "overlap": false
+        },
+        {
+          "t": 448.1,
+          "height": 351.984375,
+          "top": 588.015625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.015625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.015625,
+          "overlap": false
+        },
+        {
+          "t": 464.8,
+          "height": 351.234375,
+          "top": 588.765625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.765625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.234375,
+          "overlap": false
+        },
+        {
+          "t": 481.5,
+          "height": 351.015625,
+          "top": 588.984375,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 667.984375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.015625,
+          "overlap": false
+        },
+        {
+          "t": 498.2,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 514.8,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 531.4,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "viewport": [
+        1440,
+        1024
+      ],
+      "target": "sp-team-northstar",
+      "frames": [
+        {
+          "t": 631.5,
+          "height": 351,
+          "top": 589,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 668,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 648.1,
+          "height": 354.734375,
+          "top": 585.265625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 664.265625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.265625,
+          "overlap": false
+        },
+        {
+          "t": 664.8,
+          "height": 365.21875,
+          "top": 574.78125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 653.78125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.21875,
+          "overlap": false
+        },
+        {
+          "t": 681.5,
+          "height": 373.34375,
+          "top": 566.65625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 645.65625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.34375,
+          "overlap": false
+        },
+        {
+          "t": 698.2,
+          "height": 379.375,
+          "top": 560.625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 639.625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.375,
+          "overlap": false
+        },
+        {
+          "t": 714.8,
+          "height": 383.609375,
+          "top": 556.390625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 635.390625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.390625,
+          "overlap": false
+        },
+        {
+          "t": 731.5,
+          "height": 386.359375,
+          "top": 553.640625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 632.640625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.359375,
+          "overlap": false
+        },
+        {
+          "t": 748.1,
+          "height": 387.96875,
+          "top": 552.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 631.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 764.8,
+          "height": 388.734375,
+          "top": 551.265625,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630.265625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.265625,
+          "overlap": false
+        },
+        {
+          "t": 781.4,
+          "height": 388.96875,
+          "top": 551.03125,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 798.2,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 814.8,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 831.5,
+          "height": 389,
+          "top": 551,
+          "bottom": 940,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 630,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "target": "sp-personal-lin",
+      "frames": [
+        {
+          "t": 310.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 327.5,
+          "height": 380.96875,
+          "top": 335.03125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 414.03125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.03125,
+          "overlap": false
+        },
+        {
+          "t": 344.2,
+          "height": 371.4375,
+          "top": 344.5625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 423.5625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.4375,
+          "overlap": false
+        },
+        {
+          "t": 360.9,
+          "height": 364.140625,
+          "top": 351.859375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 430.859375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.140625,
+          "overlap": false
+        },
+        {
+          "t": 377.6,
+          "height": 358.828125,
+          "top": 357.171875,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 436.171875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.171875,
+          "overlap": false
+        },
+        {
+          "t": 394.2,
+          "height": 355.171875,
+          "top": 360.828125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 439.828125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.171875,
+          "overlap": false
+        },
+        {
+          "t": 410.9,
+          "height": 352.890625,
+          "top": 363.109375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 442.109375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.109375,
+          "overlap": false
+        },
+        {
+          "t": 427.5,
+          "height": 351.640625,
+          "top": 364.359375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 443.359375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.359375,
+          "overlap": false
+        },
+        {
+          "t": 444.2,
+          "height": 351.109375,
+          "top": 364.890625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 443.890625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.109375,
+          "overlap": false
+        },
+        {
+          "t": 460.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 477.5,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 494.3,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 510.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 527.6,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "target": "sp-team-northstar",
+      "frames": [
+        {
+          "t": 594.2,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 610.9,
+          "height": 351,
+          "top": 365,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 444,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 627.6,
+          "height": 361.65625,
+          "top": 354.34375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 433.34375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.34375,
+          "overlap": false
+        },
+        {
+          "t": 644.2,
+          "height": 370.640625,
+          "top": 345.359375,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 424.359375,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.359375,
+          "overlap": false
+        },
+        {
+          "t": 660.9,
+          "height": 377.359375,
+          "top": 338.640625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 417.640625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.359375,
+          "overlap": false
+        },
+        {
+          "t": 677.6,
+          "height": 382.21875,
+          "top": 333.78125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 412.78125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.21875,
+          "overlap": false
+        },
+        {
+          "t": 694.2,
+          "height": 385.5,
+          "top": 330.5,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 409.5,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.5,
+          "overlap": false
+        },
+        {
+          "t": 710.9,
+          "height": 387.484375,
+          "top": 328.515625,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 407.515625,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0.484375,
+          "overlap": false
+        },
+        {
+          "t": 727.5,
+          "height": 388.53125,
+          "top": 327.46875,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406.46875,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.46875,
+          "overlap": false
+        },
+        {
+          "t": 744.2,
+          "height": 388.921875,
+          "top": 327.078125,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406.078125,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": -0.078125,
+          "overlap": false
+        },
+        {
+          "t": 760.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": true,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 777.6,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 794.3,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        },
+        {
+          "t": 810.9,
+          "height": 389,
+          "top": 327,
+          "bottom": 716,
+          "width": 264,
+          "gap": 8,
+          "buttonX": 227,
+          "buttonY": 406,
+          "buttonWidth": 32,
+          "buttonHeight": 32,
+          "resizing": false,
+          "focus": true,
+          "hintVisible": true,
+          "hintDy": 0,
+          "overlap": false
+        }
+      ]
+    }
+  ],
+  "scope": "底边贴入口8px及150ms伸缩；非真实服务。",
+  "source_sha": {
+    "js/app.js": "81baae370f337cb7a8bbbf1b3427e3796019b2b349e3a7f8802bc4a881253523",
+    "js/ui.js": "f20fe97f8c60aeeb7e0e06f70713bb9bc6ec60c71dc7dceac416857f09d7cc21",
+    "css/styles.css": "cb1066e46ad77fd1e212920670984a83735dee01ea1ea5e61ec20979ebbc7780"
+  }
+}

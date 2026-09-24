@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "runtime_matches_tested_sha": true,
+  "protected_files_unchanged": true,
+  "file_url_smoke": [
+    {
+      "space": "sp-personal-lin",
+      "width": 264,
+      "height": 351,
+      "gap": 8
+    },
+    {
+      "space": "sp-team-northstar",
+      "width": 264,
+      "height": 389,
+      "gap": 8
+    }
+  ],
+  "modified_files": [
+    "README.md",
+    "SWITCH_CONTINUITY_REPORT.md",
+    "js/app.js",
+    "tests/verify-switch-continuity.py"
+  ],
+  "added_files": [
+    "tests/verify-bottom-anchor.py",
+    "BOTTOM_ANCHOR_REPORT.md"
+  ],
+  "errors": []
+}

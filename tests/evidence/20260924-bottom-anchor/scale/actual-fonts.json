@@ -1,0 +1,34 @@
+{
+  ".nav-label": [
+    {
+      "familyName": "Noto Sans SC",
+      "postScriptName": "Noto-Sans-SC",
+      "isCustomFont": false,
+      "glyphCount": 14
+    }
+  ],
+  ".space-name": [
+    {
+      "familyName": "Noto Sans SC",
+      "postScriptName": "Noto-Sans-SC-Medium",
+      "isCustomFont": false,
+      "glyphCount": 16
+    }
+  ],
+  ".pop-name": [
+    {
+      "familyName": "Noto Sans SC",
+      "postScriptName": "Noto-Sans-SC-Medium",
+      "isCustomFont": false,
+      "glyphCount": 3
+    }
+  ],
+  ".pop-email": [
+    {
+      "familyName": "Segoe UI",
+      "postScriptName": "SegoeUI",
+      "isCustomFont": false,
+      "glyphCount": 23
+    }
+  ]
+}

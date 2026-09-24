@@ -1,0 +1,153 @@
+
+== tests/tests.html 自动测试 ==
+  共 32 项：通过 32，失败 0 ✅
+  [PASS] 自动测试全部通过
+  [SHOT] tests-page.png
+  [PASS] 测试页无 JS 运行时错误
+
+== index.html 主流程（1440×1024） ==
+  [PASS] 默认团队空间显示团队项目
+  [PASS] 默认团队空间显示团队最近会话
+  [PASS] 账户入口显示账号名与团队空间
+  [PASS] 顶栏为新会话状态
+  [SHOT] home-team-default-1440.png
+  [PASS] 浮窗包含「林小满」
+  [PASS] 浮窗包含「xiaoman.lin@example.com」
+  [PASS] 浮窗包含「Northstar Studio」
+  [PASS] 浮窗包含「团队空间」
+  [PASS] 浮窗包含「创建者」
+  [PASS] 浮窗包含「用量与计费」
+  [PASS] 浮窗包含「团队管理」
+  [PASS] 浮窗包含「业务邮箱」
+  [PASS] 浮窗包含「通知」
+  [PASS] 浮窗包含「个人设置」
+  [PASS] 浮窗包含「退出登录」
+  [PASS] 浮窗不含「开启团队协作」
+  [PASS] 浮窗未读徽标为 3
+  [PASS] 浮窗总宽度 264（含边框）
+  [SHOT] popover-team-creator.png
+  [PASS] 悬停前提示不显示
+  [PASS] 悬停后显示「切换空间」提示
+  [SHOT] popover-switch-hover.png
+  [PASS] 浮窗已关闭
+  [PASS] Esc 关闭浮窗
+  [PASS] 点击外部关闭浮窗
+  [PASS] 浮窗开关后输入保留
+  [PASS] 切换后显示个人空间项目
+  [PASS] 切换后显示个人空间最近会话
+  [PASS] 个人空间账户入口：账号不变、空间为个人空间
+  [PASS] 切换后浮窗原位保留
+  [PASS] 首次进入个人空间为空白会话
+  [SHOT] home-personal-1440.png
+  [PASS] 个人空间浮窗无团队管理
+  [PASS] 个人空间浮窗无开启团队协作
+  [PASS] 个人空间浮窗无创建者身份
+  [PASS] 个人空间浮窗有切换按钮
+  [PASS] 个人空间浮窗账号信息一致
+  [SHOT] popover-personal.png
+  [PASS] 打开会话显示历史消息
+  [PASS] 会话视图顶栏显示项目名与关联项目（对齐 Figma 05）
+  [SHOT] conversation-open.png
+  [PASS] 切回团队空间项目正确
+  [PASS] 团队空白会话草稿恢复
+  [PASS] 再次进入个人空间恢复会话位置与草稿
+  [PASS] 会话历史仍在
+  [PASS] 刷新后会话位置恢复
+  [PASS] 刷新后草稿恢复
+  [PASS] 切换中提示显示「切换中…」
+  [PASS] 切换中提示常显（不依赖悬停）
+  [PASS] 切换中切换按钮被锁定
+  [PASS] 切换中菜单项被锁定
+  [PASS] 切换中账户入口允许主动关闭浮窗
+  [PASS] 慢传输切换最终成功
+  [PASS] 主动关闭后切换完成不重开
+  [PASS] 失败提示保留原空间与输入
+  [PASS] 失败后仍在团队空间
+  [PASS] 失败后输入保留
+  [PASS] 失败后浮窗仍打开（可重试）
+  [PASS] toast 重试后切换成功
+  [PASS] 重试后恢复目标空间（个人）自己的会话草稿
+  [PASS] 重试后原空间（团队）输入按空间隔离保留
+  [PASS] 项目入口提示未开放
+  [PASS] 输入草稿保留
+  [PASS] TikTok 提示未开放
+  [PASS] 退出登录有二次确认
+  [SHOT] logout-confirm.png
+  [PASS] 取消退出后保持登录状态
+  [PASS] 取消退出后输入仍在
+  [PASS] 确认退出显示已退出页
+  [PASS] 退出说明不宣称真实注销
+  [PASS] 重新进入恢复应用
+  [PASS] 重新进入后数据仍在
+  [PASS] 主页面无 JS 运行时错误
+
+== 00–05 完整流程（本地模拟） ==
+  [PASS] 00C 发送失败就近提示
+  [PASS] 00C 失败后输入保留
+  [PASS] 00B 发送中按钮文案与锁定
+  [PASS] 01 首次发送只新增会话不新增项目
+  [PASS] 01 最近副标为解析中
+  [PASS] 01 顶栏材料解析中
+  [SHOT] flow-01-parsing.png
+  [PASS] 02 引导卡出现
+  [PASS] 02 未主动打开不分屏
+  [PASS] 02 最近副标为草稿
+  [PASS] 02 保留任务条件
+  [PASS] 02 用户输入原样保留
+  [SHOT] flow-02-guidance.png
+  [PASS] 03 分屏布局(430+800)
+  [PASS] 03 最近副标为等待画像确认
+  [PASS] 03 顶栏项目草稿
+  [PASS] 03 表单编辑写入草稿
+  [SHOT] flow-03-portrait.png
+  [PASS] 03 关闭面板恢复完整对话
+  [PASS] 03 重开面板保留修改
+  [PASS] 07 旧响应不覆盖新修改（手动值保留）
+  [PASS] 07 其他字段不受影响
+  [PASS] 07 冲突回复不声称成功
+  [PASS] 07 后发命令生效且只改指定字段
+  [PASS] 03A 地区缺失就近报错
+  [PASS] 03A 校验失败不开弹窗
+  [PASS] 03A 新增画像空目标达人报错
+  [PASS] 03A 至少保留一张画像
+  [PASS] 04 预填建议名称
+  [PASS] 04D 名称为空就近报错
+  [PASS] 04 取消返回画像面板
+  [PASS] 04 重开弹窗保留用户名称
+  [PASS] 04B 创建失败留在弹窗并提示
+  [SHOT] flow-04b-create-failed.png
+  [PASS] 04 提交中锁定重复创建
+  [PASS] 05 只新增一个项目
+  [PASS] 05 成功消息追加
+  [PASS] 05 项目区出现新项目
+  [PASS] 05 最近标题同步
+  [PASS] 05 最近副标为项目助手
+  [PASS] 05 顶栏关联项目
+  [PASS] 05 面板已关闭恢复完整对话
+  [PASS] 05 输入框仍可用
+  [SHOT] flow-05-created.png
+  [PASS] 刷新后项目与会话绑定恢复
+  [PASS] 刷新后成功消息不重复
+  [PASS] 最近返回不重复追加消息
+  [PASS] 05 历史画像入口为只读查看
+  [PASS] 空间隔离：个人空间项目不含新项目
+  [PASS] 空间隔离：个人空间最近无新会话
+  [PASS] 00–05 流程无 JS 运行时错误
+
+== 1280×800 适配 ==
+  [PASS] 1280×800 浮窗不出屏（上）
+  [PASS] 1280×800 浮窗不出屏（左）
+  [PASS] 1280×800 浮窗不出屏（下）
+  [PASS] 1280×800 浮窗不出屏（右）
+  [SHOT] home-team-1280-popover.png
+  [PASS] 1280×800 输入区及操作行不出屏
+  [PASS] 1280×800 画像面板可见且收窄
+  [PASS] 1280×800 画像内容可滚动
+  [SHOT] flow-1280-split.png
+  [PASS] 1280×800 命名弹窗不出屏
+  [PASS] 输入聚焦仅外层一圈 Mint 边框
+  [PASS] 1280×800 无 JS 运行时错误
+
+================ 结果汇总 ================
+通过: 125  失败: 0
+全部通过 ✅

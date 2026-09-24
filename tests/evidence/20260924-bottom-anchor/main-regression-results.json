@@ -1,0 +1,11 @@
+{
+  "exit_code": 0,
+  "passed": 76,
+  "failed": 0,
+  "failures": [],
+  "source_sha": {
+    "js/app.js": "81baae370f337cb7a8bbbf1b3427e3796019b2b349e3a7f8802bc4a881253523",
+    "js/ui.js": "f20fe97f8c60aeeb7e0e06f70713bb9bc6ec60c71dc7dceac416857f09d7cc21",
+    "css/styles.css": "cb1066e46ad77fd1e212920670984a83735dee01ea1ea5e61ec20979ebbc7780"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": "passed",
+  "runtime_source_matches_tested_sha": true,
+  "protected_files_unchanged": true,
+  "prior_browser_checks": 343,
+  "main_regression_checks": 76,
+  "final_file_url_smoke": "passed",
+  "report_exists": true,
+  "modified_files": [
+    "POPOVER_COMPACT_REPORT.md",
+    "README.md",
+    "js/app.js",
+    "js/ui.js",
+    "tests/verify-compact-popover.py",
+    "tests/verify-local-fix.py",
+    "tests/verify.py"
+  ],
+  "new_files": [
+    "tests/verify-switch-continuity.py",
+    "SWITCH_CONTINUITY_REPORT.md"
+  ]
+}

@@ -1,0 +1,11 @@
+[
+  "POPOVER_COMPACT_REPORT.md",
+  "README.md",
+  "js/app.js",
+  "js/ui.js",
+  "tests/verify-compact-popover.py",
+  "tests/verify-local-fix.py",
+  "tests/verify.py",
+  "tests/verify-switch-continuity.py",
+  "SWITCH_CONTINUITY_REPORT.md"
+]

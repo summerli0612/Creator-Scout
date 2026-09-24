@@ -1,0 +1,19 @@
+# 截图：体积大，而且每次重跑自动生成，进来会让每次改动都变成一堆图片噪音
+screenshots/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 临时/探测文件
+tmp/
+_probe*
+*.log
+*.tmp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 依赖（这个项目暂时没有，先占位）
+node_modules/

@@ -1,0 +1,10 @@
+{
+  "returncode": 0,
+  "source_sha256": {
+    "css/styles.css": "cb1066e46ad77fd1e212920670984a83735dee01ea1ea5e61ec20979ebbc7780",
+    "js/ui.js": "593a861f11ad6d144232218f126dbdcb32b104f1f2cd65376d3bb4a9ec5cd197",
+    "js/app.js": "9360a284b5dfafed3b8efa335a0202396b0b7fb28e55120328e0764dee3b22c7",
+    "js/store.js": "deb75124f73c1379381a2081a5267f5a83c5674a99c669d6b4e57a258d86396e",
+    "tests/verify.py": "b3db0d86259f93ed046544f15423846e35d4677b51bf8b1af181677558dd0ea5"
+  }
+}

@@ -1,0 +1,511 @@
+--- before/README.md
+
++++ after/README.md
+
+@@ -1,4 +1,7 @@
+
+ # Creator Scout 独立首页交互原型
++
++> **2026-09-24 浮窗紧凑版**：最新用户确认覆盖旧浮窗324/326/280px及44px菜单规范，现为264px含边框、38px菜单、36px头像、18px图标。亮度与业务交互保留。详见 `POPOVER_COMPACT_REPORT.md`。最新首页Figma视觉同步已由用户暂缓，本次不做该项、不宣称已对齐最新Figma。
++
+ 
+ 一个可独立运行的 Creator Scout 首页原型：深色首页 + 品牌标识 + 左侧 AI Agent / 项目 / 最近三分区 + Instagram 默认空白会话 + 账户浮窗（四态规则）+ 团队/个人空间切换（按空间隔离项目、最近会话与未发送输入）。
+ 
+@@ -23,15 +26,15 @@
+
+    浏览器访问 <http://localhost:8734/index.html>
+ 
+ 自动测试页：`creator-scout-home/tests/tests.html`（同样可直接打开），运行四态浮窗矩阵、
+-空间隔离、草稿恢复、竞态守卫、失败重试等本地逻辑断言，并附带与 Figma 501:2584 同构的四态对照板。
++空间隔离、草稿恢复、竞态守卫、失败重试等本地逻辑断言，并附带本地264px四态对照板（含管理员）。
+ 
+-本机已装 Python + Playwright 时，还可运行三个自动化验证脚本（产出 `screenshots/` 与对照结果）：
++本机已装 Python + Playwright 时，当前回归入口如下（产出独立截图与测试结果）：
+ 
+ ```bash
+ cd "creator-scout-home"
+ python tests/verify.py        # 端到端：页面内测试 + 主流程操作 + 截图 + 1280×800 适配
+-python tests/layout-audit.py  # 布局对照：关键元素几何位置 vs Figma 节点数据（±2px）
+-python tests/color-audit.py   # 颜色对照：关键位置取色 vs 设计 Token（需先跑 verify.py 生成截图）
++python tests/verify-compact-popover.py  # 264px尺度、四态、颜色/对齐、提示避让及上一轮交互回归
++# layout-audit.py / color-audit.py 保留历史用途，不能作为最新Figma或本轮紧凑版验收入口。
+ ```
+ 
+ ## 演示账号与空间
+@@ -43,8 +46,8 @@
+
+ ## 已实现（前端演示可用）
+ 
+ - 首页与品牌：Figma 306:74 深色首页布局；品牌使用 Figma 导出的**转轮廓 SVG**（深底横版 524:329，无字体依赖）。
+-- 账户浮窗：324px 宽、行高 44、圆角 8、无投影；四态显隐与顺序按 account-popover.md 矩阵计算；
+-  点击外部 / Esc 关闭；切换按钮悬停才显示「切换空间」提示（552:843 / 554:73）。
++- 账户浮窗：264px宽（含边框）、菜单高38、外框圆角8、无投影；头像36、菜单图标18、昵称/菜单14px。四态规则不变。
++  点击外部 / Esc 关闭；仅切换按钮悬停或键盘聚焦显示提示。提示独立在浮窗外定位，右侧不足时避让至上/下方；切换中保留反馈。
+ - 空间切换（**2026-09-24 用户已确认的交互**）：点击浮窗切换按钮**直接切换到另一空间**——账号永远保留一个个人空间、最多属于一个团队空间，二者互切即可，无需选择列表；
+   切换中按钮与菜单锁定并在按钮旁常显「切换中…」；成功后关闭浮窗，保留原空间会话位置与未发送输入；
+   首次进入目标空间显示空白首页，再次进入恢复上次会话位置与输入。
+@@ -81,8 +84,8 @@
+
+ 
+ ## 设计还原口径
+ 
+-- 依据 Figma `vpKV1bb6IHNCkxSp2NPoqV` 实际节点数据（306:74 / 311:73 / 540:73 / 558:133 / 558:73 / 558:193 / 552:843 / 554:73 / 522:73），非画板名称或旧截图推测。
+-- 中文 UI 使用 Noto Sans SC；英文（邮箱、团队名、数字）使用 Inter。运行环境未安装这两种字体时按
++- 原始实现依据历史 Figma `vpKV1bb6IHNCkxSp2NPoqV` 节点数据（306:74 / 311:73 / 540:73 / 558:133 / 558:73 / 558:193 / 552:843 / 554:73 / 522:73），非画板名称或旧截图推测。
++- UI文字（含团队名称及头像占位字）跟随首页 Noto Sans SC 字体栈；邮箱、数字沿用 Inter 数据字体栈。运行环境未安装这两种字体时按
+   `Microsoft YaHei` / `Segoe UI` 等系统字体降级渲染——字体渲染效果取决于本机安装，原型未内嵌字体文件。
+ - 品牌 Discovery Mint / Primary Teal 仅用于品牌标识本身；后台交互仍用既有 Mint `#55D9B4` 语义。
+ - 1440×1024 对照 Figma；1280×800 下主要内容、浮窗与主要操作不出屏（属适配，非独立移动稿）。
+@@ -95,4 +98,4 @@
+
+ 3. 「切换中」反馈为按钮旁提示芯片常显「切换中…」+ 浮窗全部入口锁定，无骨架屏或页面级加载动画
+    （默认模拟延时约 120ms，无人为长延时）。
+ 4. localStorage 仅作本地演示持久化，不代表服务端存储。
+-5. 切换悬停提示文字沿用 Figma 554:73 的「切换空间」；如需更明确的文案（如「切换到个人空间」）待设计确认。
++5. 切换提示文案仍为「切换空间」；本次修正尺度与提示避让，不更改账户内部功能。主动点Instagram开启独立空白草稿，空间往返恢复最后活动草稿，旧草稿不清空。
+--- before/css/styles.css
+
++++ after/css/styles.css
+
+@@ -467,13 +467,13 @@
+
+ }
+ 
+ /* =========================================================
+- * 账户浮窗（最新用户确认：280px 含边框 · 行高 44 · 圆角 8 · 无投影）
++ * 账户浮窗（最新用户确认：264px 含边框 · 菜单高 38 · 外框圆角 8 · 无投影）
+  * ========================================================= */
+ .account-popover {
+   position: fixed;
+   left: 12px;
+   bottom: 84px; /* 76 入口高 + 8 间距 */
+-  width: 280px; /* border-box：包含两侧 1px 边框 */
++  width: 264px; /* border-box：包含两侧 1px 边框；四种状态保持同宽 */
+   max-width: calc(100vw - 24px);
+   max-height: calc(100vh - 96px);
+   max-height: calc(100dvh - 96px);
+@@ -483,7 +483,7 @@
+
+   background: var(--bg-popover);
+   border: 1px solid var(--border-default);
+   border-radius: 8px;
+-  padding: 10px;
++  padding: 8px;
+   z-index: 100;
+   animation: pop-in 0.12s ease-out;
+ }
+@@ -495,26 +495,26 @@
+
+ .pop-account {
+   display: flex;
+   align-items: center;
+-  gap: 12px;
+-  height: 70px;
+-  padding: 11px 8px;
++  gap: 10px;
++  height: 56px;
++  padding: 7px 8px;
+ }
+ .pop-account .pop-avatar {
+-  width: 40px;
+-  height: 40px;
++  width: 36px;
++  height: 36px;
+   flex: none;
+   border-radius: 8px;
+   background: var(--avatar-account-popover);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+-  font-size: 18px;
++  font-size: 14px;
+   font-weight: 500;
+   color: #FFFFFF;
+ }
+ .pop-account-text { flex: 1; min-width: 0; }
+ .pop-account .pop-name, .pop-account .pop-email { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+-.pop-account .pop-name { font-size: 15px; font-weight: 500; line-height: 20px; color: var(--text-primary); }
++.pop-account .pop-name { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--text-primary); }
+ .pop-account .pop-email {
+   margin-top: 3px;
+   font-family: var(--font-en);
+@@ -523,12 +523,12 @@
+
+   color: var(--text-muted);
+ }
+ 
+-/* 空间区（76 高；无团队状态整区不存在，不留占位） */
+-.pop-space { position: relative; height: 76px; padding: 10px 8px; }
++/* 空间区（60 高；两层文字44高，上下各8；无团队整区不存在） */
++.pop-space { position: relative; height: 60px; padding: 8px; }
+ .pop-space .space-row {
+   position: relative;
+   min-width: 0;
+-  height: 56px;
++  height: 44px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+@@ -542,8 +542,8 @@
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+-  font-family: var(--font-en);
+-  font-size: 20px;
++  font-family: var(--font-ui);
++  font-size: 14px;
+   font-weight: 500;
+   color: #F3FCF9;
+ }
+@@ -559,7 +559,6 @@
+
+   text-overflow: ellipsis;
+   max-width: 100%;
+ }
+-.pop-space .space-name--en { font-family: var(--font-en); }
+ .pop-space .space-tags { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+ .tag-space {
+   display: inline-flex;
+@@ -591,12 +590,11 @@
+
+ .switch-btn:disabled:hover { background: var(--switch-btn-bg); }
+ .switch-btn img { width: 32px; height: 32px; }
+ 
++/* 提示由 UI.attachSwitchHint 挂在浮窗滚动层外，位置按可视窗口避让。 */
+ .switch-hint {
+-  position: absolute;
+-  right: 40px; /* 提示留在浮窗内部，不被限高滚动容器裁切或撑出小窗口 */
++  position: fixed;
+   pointer-events: none;
+-  top: 50%;
+-  transform: translateY(-50%);
++  max-width: calc(100vw - 16px);
+   padding: 6px 10px;
+   background: var(--switch-btn-bg);
+   border: 1px solid var(--border-strong);
+@@ -606,11 +604,9 @@
+
+   color: var(--text-primary);
+   white-space: nowrap;
+   display: none;
+-  z-index: 1;
+-}
+-.switch-btn:hover ~ .switch-hint,
+-.switch-btn:focus-visible ~ .switch-hint { display: block; }
+-.switch-hint.is-busy { display: block; } /* 切换中反馈常显，不依赖悬停 */
++  z-index: 110;
++}
++.switch-hint.is-floating:not([hidden]) { display: block; }
+ 
+ .pop-divider { height: 1px; background: var(--border-default); margin: 0; }
+ 
+@@ -619,18 +615,18 @@
+
+   position: relative;
+   display: flex;
+   align-items: center;
+-  gap: 12px;
++  gap: 10px;
+   width: 100%;
+-  height: 44px;
++  height: 38px;
+   padding-left: 12px;
+-  border-radius: 8px;
++  border-radius: 6px;
+   text-align: left;
+   font-size: 14px;
+-  line-height: 22px;
++  line-height: 20px;
+   color: var(--text-primary);
+ }
+ .pop-menu-item:hover { background: var(--switch-btn-bg); }
+-.pop-menu-item img { width: 20px; height: 20px; flex: none; }
++.pop-menu-item img { width: 18px; height: 18px; flex: none; }
+ .pop-menu-item--logout { color: var(--text-secondary); }
+ .pop-menu-item--logout img { opacity: 1; }
+ 
+--- before/js/app.js
+
++++ after/js/app.js
+
+@@ -15,6 +15,13 @@
+
+   var Store = global.Store;
+   var UI = global.UI;
+   var store = Store.create();
++  var disposeSwitchHint = null;
++
++  function clearSwitchHint() {
++    if (disposeSwitchHint) disposeSwitchHint();
++    disposeSwitchHint = null;
++  }
++
+ 
+   var appState = {
+     popoverOpen: false,
+@@ -73,6 +80,7 @@
+
+     var app = document.getElementById('app');
+     var signedOut = document.getElementById('signed-out');
+     if (state.signedOut) {
++      clearSwitchHint();
+       app.hidden = true;
+       signedOut.hidden = false;
+       appState.popoverOpen = false;
+@@ -88,6 +96,7 @@
+
+   }
+ 
+   function renderPopover() {
++    clearSwitchHint();
+     var root = document.getElementById('popover-root');
+     var old = root.querySelector('.account-popover');
+     var hadFocus = old && old.contains(document.activeElement);
+@@ -114,6 +123,7 @@
+
+     el.innerHTML = UI.popoverAccountHTML(model, { switching: store.isSwitching(), hintId: 'space-switch-hint' });
+     root.innerHTML = '';
+     root.appendChild(el);
++    disposeSwitchHint = UI.attachSwitchHint(el, root);
+     if (hadFocus) {
+       var buttons = popoverButtons(el);
+       var key = appState.popoverFocusKey;
+--- before/js/ui.js
+
++++ after/js/ui.js
+
+@@ -101,7 +101,7 @@
+
+       h += '<div class="pop-space"><div class="space-row">';
+       if (s.kind === 'team') {
+         h += '<div class="space-avatar">' + esc(s.initial) + '</div>';
+-        h += '<div class="space-meta"><div class="space-name space-name--en" title="' + esc(s.name) + '">' + esc(s.name) + '</div>';
++        h += '<div class="space-meta"><div class="space-name" title="' + esc(s.name) + '">' + esc(s.name) + '</div>';
+         h += '<div class="space-tags"><span class="tag-space">' + esc(s.typeLabel) + '</span>' +
+           '<span class="space-role">' + esc(s.roleLabel) + '</span></div></div>';
+       } else {
+@@ -144,6 +144,94 @@
+
+       '<img src="' + icon('icon-logout.svg') + '" alt=""><span>退出登录</span></button>';
+     h += '</div>';
+     return h;
++  }
++
++  /**
++   * 切换提示独立于浮窗的滚动/动画容器；仅按钮 hover / 键盘 focus 或切换中显示。
++   * 返回清理函数，浮窗重绘/关闭必须调用，避免遗留提示和监听器。
++   */
++  function attachSwitchHint(popover, layer) {
++    var button = popover.querySelector('.switch-btn');
++    var hint = popover.querySelector('.switch-hint');
++    if (!button || !hint) return function () {};
++    var disposed = false, frame = null;
++    hint.hidden = true;
++    hint.classList.add('is-floating');
++    layer.appendChild(hint);
++    var viewport = global.visualViewport;
++
++    function update() {
++      frame = null;
++      if (disposed || !popover.isConnected) return;
++      var busy = hint.classList.contains('is-busy');
++      var requested = busy || button.matches(':hover') || button.matches(':focus-visible');
++      if (!requested) { hint.hidden = true; return; }
++      var box = popover.getBoundingClientRect(), anchor = button.getBoundingClientRect();
++      var margin = 8, gap = 8;
++      var leftEdge = (viewport ? viewport.offsetLeft : 0) + margin;
++      var topEdge = (viewport ? viewport.offsetTop : 0) + margin;
++      var rightEdge = leftEdge + (viewport ? viewport.width : global.innerWidth) - margin * 2;
++      var bottomEdge = topEdge + (viewport ? viewport.height : global.innerHeight) - margin * 2;
++      var anchorVisible = anchor.top >= Math.max(box.top, topEdge) && anchor.bottom <= Math.min(box.bottom, bottomEdge);
++      if (!busy && !anchorVisible) { hint.hidden = true; return; }
++      hint.style.maxWidth = Math.max(0, rightEdge - leftEdge) + 'px';
++      hint.hidden = false;
++      var size = hint.getBoundingClientRect();
++      function clamp(value, low, high) { return Math.max(low, Math.min(value, high)); }
++      var x, y, placement;
++      // 放在外框右侧：至少离按钮8px，同时保证不压在浮窗边框/信息上。
++      var right = Math.max(anchor.right + gap, box.right + gap);
++      if (right + size.width <= rightEdge) {
++        x = right;
++        y = clamp(anchor.top + (anchor.height - size.height) / 2, topEdge, bottomEdge - size.height);
++        placement = 'right';
++      } else if (box.top - gap - size.height >= topEdge) {
++        x = clamp(anchor.right - size.width, leftEdge, rightEdge - size.width);
++        y = box.top - gap - size.height;
++        placement = 'top';
++      } else if (box.bottom + gap + size.height <= bottomEdge) {
++        x = clamp(anchor.right - size.width, leftEdge, rightEdge - size.width);
++        y = box.bottom + gap;
++        placement = 'bottom';
++      } else if (box.left - gap - size.width >= leftEdge) {
++        x = box.left - gap - size.width;
++        y = clamp(anchor.top, topEdge, bottomEdge - size.height);
++        placement = 'left';
++      } else {
++        // 极端小视口宁可不画提示，也不盖住名称/身份；按钮仍有 aria-label。
++        hint.hidden = true;
++        return;
++      }
++      hint.style.left = Math.round(x) + 'px';
++      hint.style.top = Math.round(y) + 'px';
++      hint.dataset.placement = placement;
++    }
++    function schedule() {
++      if (!disposed && frame === null) frame = global.requestAnimationFrame(update);
++    }
++    var events = ['pointerenter', 'pointerleave', 'focus', 'blur'];
++    events.forEach(function (name) { button.addEventListener(name, schedule); });
++    popover.addEventListener('scroll', schedule, { passive: true });
++    popover.addEventListener('animationend', schedule);
++    global.addEventListener('resize', schedule);
++    if (viewport) {
++      viewport.addEventListener('resize', schedule);
++      viewport.addEventListener('scroll', schedule);
++    }
++    update();
++    return function () {
++      disposed = true;
++      if (frame !== null) global.cancelAnimationFrame(frame);
++      events.forEach(function (name) { button.removeEventListener(name, schedule); });
++      popover.removeEventListener('scroll', schedule);
++      popover.removeEventListener('animationend', schedule);
++      global.removeEventListener('resize', schedule);
++      if (viewport) {
++        viewport.removeEventListener('resize', schedule);
++        viewport.removeEventListener('scroll', schedule);
++      }
++      hint.remove();
++    };
+   }
+ 
+   /* ------------------------------------------------------------------
+@@ -420,6 +508,7 @@
+
+     ICONS: ICONS,
+     computePopoverModel: computePopoverModel,
+     popoverAccountHTML: popoverAccountHTML,
++    attachSwitchHint: attachSwitchHint,
+     renderSidebar: renderSidebar,
+     renderTopbar: renderTopbar,
+     renderConversation: renderConversation,
+--- before/tests/verify-local-fix.py
+
++++ after/tests/verify-local-fix.py
+
+@@ -16,7 +16,7 @@
+
+ from playwright.sync_api import sync_playwright
+ 
+ ROOT = Path(__file__).resolve().parent.parent
+-SHOTS = ROOT / 'screenshots/20260924-local-fix'
++SHOTS = ROOT / 'screenshots/20260924-popover-compact/regression-local'
+ EVIDENCE = ROOT / 'tests/evidence/20260924-local-fix'
+ SHOTS.mkdir(parents=True, exist_ok=True)
+ EVIDENCE.mkdir(parents=True, exist_ok=True)
+@@ -92,22 +92,25 @@
+
+     check('1440：未产生横向页面溢出', page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+     shot(page, 'home-1440')
+     open_pop(page)
+-    check('浮窗总宽度准确为 280px 含边框', abs(rect(page, '.account-popover')['width'] - 280) < .01)
++    check('浮窗总宽度准确为 264px 含边框', abs(rect(page, '.account-popover')['width'] - 264) < .01)
+     check('浮窗默认无常驻切换提示', not page.locator('.switch-hint').is_visible())
+     for sel, label in [('.space-avatar', '头像'), ('.space-name', '名称'), ('.space-role', '身份')]:
+         page.locator(sel).hover()
+         check('仅按钮提示：悬停' + label + '不显示', not page.locator('.switch-hint').is_visible())
+     page.locator('.switch-btn').hover()
++    page.wait_for_selector('.switch-hint', state='visible')
+     check('仅按钮提示：悬停切换按钮显示', page.locator('.switch-hint').is_visible())
+     check('提示本身未越出可视区域', in_view(page, '.switch-hint'))
+-    shot(page, 'popover-280-hover')
++    shot(page, 'popover-264-hover')
+     page.mouse.move(1000, 700)
++    page.wait_for_selector('.switch-hint', state='hidden')
+     check('仅按钮提示：离开后隐藏', not page.locator('.switch-hint').is_visible())
+-    shot(page, 'popover-280')
++    shot(page, 'popover-264')
+     page.keyboard.press('Escape')
+     check('Esc 关闭浮窗并回到账户入口', page.locator('.account-popover').count() == 0 and page.evaluate("document.activeElement.id === 'account-entry'"))
+     page.keyboard.press('Enter')
+     check('键盘账户激活：焦点进入切换按钮', page.evaluate("document.activeElement.matches('.switch-btn')"))
++    page.wait_for_selector('.switch-hint', state='visible')
+     check('键盘聚焦按钮显示提示及可见焦点', page.locator('.switch-hint').is_visible() and page.locator('.switch-btn').evaluate("e => e.matches(':focus-visible') && getComputedStyle(e).outlineStyle !== 'none'"))
+     ordered = page.locator('.account-popover button:not(:disabled)').evaluate_all("es=>es.map(e=>e.dataset.action+'|'+(e.dataset.name||''))")
+     seen = []
+@@ -137,7 +140,7 @@
+
+     check('1280：首页与输入操作无溢出', in_view(page, '.composer') and in_view(page, '.composer-actions') and page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+     shot(page, 'home-1280')
+     open_pop(page)
+-    check('1280：280px 浮窗不出屏', in_view(page, '.account-popover') and abs(rect(page, '.account-popover')['width']-280)<.01)
++    check('1280：264px 浮窗不出屏', in_view(page, '.account-popover') and abs(rect(page, '.account-popover')['width']-264)<.01)
+     shot(page, 'home-1280-popover')
+     page.keyboard.press('Escape')
+     ctx.close()
+@@ -159,9 +162,9 @@
+
+             }''', {'key': key, 'teamName': team_name})
+             page.wait_for_timeout(150)
+             prefix = lang + '/' + key
+-            check(prefix + '：总宽280且内容不撑开', abs(rect(page, '.account-popover')['width']-280)<.01 and page.locator('.account-popover').evaluate('e=>e.scrollWidth===e.clientWidth'))
++            check(prefix + '：总宽264且内容不撑开', abs(rect(page, '.account-popover')['width']-264)<.01 and page.locator('.account-popover').evaluate('e=>e.scrollWidth===e.clientWidth'))
+             check(prefix + '：长昵称邮箱单行省略且保留全文 title', page.locator('.pop-name,.pop-email').evaluate_all("es=>es.every(e=>e.title===e.textContent && e.scrollWidth>e.clientWidth && getComputedStyle(e).textOverflow==='ellipsis' && getComputedStyle(e).whiteSpace==='nowrap')"))
+-            check(prefix + '：头像40及菜单行44不缩小', abs(rect(page, '.pop-avatar')['width']-40)<.01 and page.locator('.pop-menu-item').evaluate_all('es=>es.every(e=>e.getBoundingClientRect().height===44)'))
++            check(prefix + '：头像36及菜单行38准确且不被挤压', abs(rect(page, '.pop-avatar')['width']-36)<.01 and page.locator('.pop-menu-item').evaluate_all('es=>es.every(e=>e.getBoundingClientRect().height===38)'))
+             if key == 'personal-no-team':
+                 check(prefix + '：空间区不存在且分隔线紧邻账号区', page.locator('.pop-space').count()==0 and abs(rect(page,'.pop-divider:nth-child(2)')['y']-rect(page,'.pop-account')['bottom'])<.01)
+             else:
+@@ -332,7 +335,9 @@
+
+     report={'results':RESULTS,'passed':sum(x['pass'] for x in RESULTS),'failed':sum(not x['pass'] for x in RESULTS),
+             'blocked':['最新 Figma 306:74 结构/截图未能实时读取；不把本地历史几何值当作最新设计验收证据。','Figma 522:73 未能实时重新导出，favicon 复用已有导出矢量路径及本地已确认品牌色。'],
+             'note':'favicon-sizes 截图是实际页面栅格检查，不能代替真实浏览器标签栏；标签栏另运行 verify-favicon-chrome.py。'}
+-    (EVIDENCE/'local-fix-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
++    current_evidence = ROOT/'tests/evidence/20260924-popover-compact'
++    current_evidence.mkdir(parents=True, exist_ok=True)
++    (current_evidence/'local-fix-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+     print('\nTOTAL: %d passed, %d failed'%(report['passed'],report['failed']),flush=True)
+     return 1 if report['failed'] else 0
+ 
+--- before/tests/verify.py
+
++++ after/tests/verify.py
+
+@@ -17,8 +17,8 @@
+
+     pass
+ 
+ ROOT = pathlib.Path(__file__).resolve().parent.parent
+-SHOTS = ROOT / "screenshots"
+-SHOTS.mkdir(exist_ok=True)
++SHOTS = ROOT / "screenshots/20260924-popover-compact/regression"
++SHOTS.mkdir(parents=True, exist_ok=True)
+ 
+ from playwright.sync_api import sync_playwright  # noqa: E402
+ 
+@@ -93,7 +93,7 @@
+
+             check("浮窗包含「%s」" % t, t in pop_text)
+         check("浮窗不含「开启团队协作」", "开启团队协作" not in pop_text)
+         check("浮窗未读徽标为 3", page.inner_text(".badge-unread").strip() == "3")
+-        check("浮窗总宽度 280（含边框）", abs(page.eval_on_selector(".account-popover", "e => e.getBoundingClientRect().width") - 280) < 0.01)
++        check("浮窗总宽度 264（含边框）", abs(page.eval_on_selector(".account-popover", "e => e.getBoundingClientRect().width") - 264) < 0.01)
+         shot(page, "popover-team-creator.png")
+ 
+         # 切换按钮悬停提示（默认不显示，悬停才显示）
+--- before/tests/tests.html
+
++++ after/tests/tests.html
+
+@@ -38,7 +38,7 @@
+
+       <div id="result-list"></div>
+     </div>
+ 
+-    <p class="board-title">280px 四态浮窗对照板（含管理员；用于本地规则检查，不代表最新 Figma 对照通过）</p>
++    <p class="board-title">264px 紧凑四态浮窗对照板（含管理员；用于本地规则检查，不代表最新 Figma 对照通过）</p>
+     <div class="fixture-board" id="fixture-board"></div>
+   </div>
+ 

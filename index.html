@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Scout</title>
+  <link rel="icon" href="assets/favicon-discovery-20260924.svg" type="image/svg+xml" sizes="any">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- 应用外壳：左侧边栏 + 主区域。真实布局与可操作控件，非截图铺排。 -->
+  <div id="app" class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="assets/logo-dark-horizontal.svg" width="170" height="32" alt="Creator Scout">
+      </div>
+      <div class="sidebar-scroll" id="sidebar-scroll"><!-- JS 渲染：AI Agent / 项目 / 最近 --></div>
+      <div class="sidebar-account" id="sidebar-account"><!-- JS 渲染：左下账户入口 --></div>
+    </aside>
+    <main class="main">
+      <header class="topbar" id="topbar"><!-- JS 渲染 --></header>
+      <div class="main-body">
+        <section class="conversation-col" id="conversation-col"><!-- JS 渲染：空白会话或历史会话 --></section>
+        <!-- 03 项目画像面板（用户主动打开才分屏；关闭恢复完整对话） -->
+        <aside id="portrait-panel-root" class="portrait-panel-root" hidden></aside>
+      </div>
+    </main>
+  </div>
+
+  <!-- 已退出本地演示登录的说明页（不宣称已注销任何真实服务会话） -->
+  <div id="signed-out" class="signed-out" hidden>
+    <img src="assets/logo-dark-horizontal.svg" width="340" height="64" alt="Creator Scout">
+    <p class="signed-out-title">已退出本地演示登录</p>
+    <p class="signed-out-desc">这仅结束当前原型的本地演示登录状态，不代表已注销任何真实服务会话。<br>演示数据与各空间保存的输入已保留。</p>
+    <button type="button" class="btn btn-primary" id="reenter-btn">重新进入演示</button>
+  </div>
+
+  <!-- 账户浮窗（直接切换空间，无空间选择列表）挂载点 -->
+  <div id="popover-root"></div>
+  <!-- 轻提示（未开放功能等）挂载点 -->
+  <div id="toast-root"></div>
+  <!-- 二次确认弹窗（退出登录）挂载点 -->
+  <div id="modal-root"></div>
+
+  <script src="js/fixtures.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+{
+  "passed": 31,
+  "failed": 0,
+  "modified_documents": [
+    "README.md",
+    "design-spec/README.md",
+    "tasks/README.md",
+    "design-spec/pages/account-popover.md",
+    "需求说明/登录首页_统一需求规格.md",
+    "tasks/2026-09-24_creator-scout-home-standalone-glm.md",
+    "tasks/2026-09-24_creator-scout-home-standalone-result.md",
+    "tasks/2026-09-24_home-redesign-glm-handoff.md",
+    "creator-scout-home/README.md",
+    "creator-scout-home/BOTTOM_ANCHOR_REPORT.md"
+  ],
+  "protected_files": 287,
+  "protected_changes": [],
+  "checked_local_links": 88,
+  "new_local_links": 36,
+  "tests_rerun": false,
+  "checks": [
+    {
+      "name": "10份指定文档均已更新",
+      "pass": true,
+      "detail": [
+        "README.md",
+        "design-spec/README.md",
+        "tasks/README.md",
+        "design-spec/pages/account-popover.md",
+        "需求说明/登录首页_统一需求规格.md",
+        "tasks/2026-09-24_creator-scout-home-standalone-glm.md",
+        "tasks/2026-09-24_creator-scout-home-standalone-result.md",
+        "tasks/2026-09-24_home-redesign-glm-handoff.md",
+        "creator-scout-home/README.md",
+        "creator-scout-home/BOTTOM_ANCHOR_REPORT.md"
+      ]
+    },
+    {
+      "name": "287份受保护文件（运行代码、V9、测试脚本、资产、截图及已有证据）SHA256不变",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "tasks/2026-09-24_creator-scout-home-standalone-glm.md 原正文逐字节保留，仅加顶部状态",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tasks/2026-09-24_creator-scout-home-standalone-result.md 原正文逐字节保留，仅加顶部状态",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "底边贴合报告已有测试数据及证据段未改写",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "完整创建流程第3至7节正文保持不变",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "四态权限矩阵及菜单顺序保持不变",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T3完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T4完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T5完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T6完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T7完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "T11完整流程/内部功能任务行未扩大",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "新增本地文档链接全部可解析",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "指定10份文档全部本地链接可解析",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "README.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "design-spec/README.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tasks/README.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "design-spec/pages/account-popover.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "需求说明/登录首页_统一需求规格.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tasks/2026-09-24_creator-scout-home-standalone-glm.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tasks/2026-09-24_creator-scout-home-standalone-result.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "tasks/2026-09-24_home-redesign-glm-handoff.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "creator-scout-home/README.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "creator-scout-home/BOTTOM_ANCHOR_REPORT.md UTF8/Markdown代码块完整",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "design-spec/pages/account-popover.md 冲突的旧执行规则已去除",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "需求说明/登录首页_统一需求规格.md 冲突的旧执行规则已去除",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "tasks/2026-09-24_home-redesign-glm-handoff.md 冲突的旧执行规则已去除",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "当前浮窗规范含全部核心定版值",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "最终报告明确用户通过且不扩大范围",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "当前运行源码仍与已有416项测试绑定版本一致（本次不重跑）",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "sha256": {
+    "README.md": "3fd3434963c5cc1b00d94b6d10abee51373e8c7f2ed834333077363d5df081d0",
+    "design-spec/README.md": "5dd889b1262edfa7abddfa22d7aa09bba338cf9411b39a74594ce86b64a8e12d",
+    "tasks/README.md": "c7ea9d4e35262d1f7ed1e8af19399062be81fbce26f09fb4db22917d78ca831c",
+    "design-spec/pages/account-popover.md": "6b2ca5a901b7464f5a4e8697ea92119c70596c1f9a8fb79bf644be00d8ac6ffe",
+    "需求说明/登录首页_统一需求规格.md": "d654663447e3aebf39035d15b4bef34f6ea2cff79bfc54e35e0b3193e78f8cea",
+    "tasks/2026-09-24_creator-scout-home-standalone-glm.md": "ff20aa28efe25ebfac8a9a595f9138ce37f7f62df5fe650e49fec38a9daa596d",
+    "tasks/2026-09-24_creator-scout-home-standalone-result.md": "0bcde1c98a8f15ead865662f163446e45b3a66b3d4550236529fb2df83873cf3",
+    "tasks/2026-09-24_home-redesign-glm-handoff.md": "4b1e718a4108c37720bcd2f99ec59efea81c789bcf570e5b4fe6c7e49217383c",
+    "creator-scout-home/README.md": "bf70a74edfbb7c66d9f69c321821e2f139364e62cd7842a19ca444e035c33450",
+    "creator-scout-home/BOTTOM_ANCHOR_REPORT.md": "51bd57feecf470368ac22ee95d2fc8afa69972a9ef50858f64c729437e7104e9"
+  }
+}
