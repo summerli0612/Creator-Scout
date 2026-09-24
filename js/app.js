@@ -28,7 +28,8 @@
     panelErrors: {},         // 03A 就近校验错误 { key: message }
     expandMaterials: false,  // 02 材料紧凑行的展开状态
     namingModal: null,       // 04 命名弹窗句柄
-    editing: null            // 03 画像面板的编辑态（阅读/编辑两态，不落盘）
+    editing: null,           // 03 原位编辑的临时值，完成时写入共享草稿
+    addDraft: null           // V9 新画像草稿卡，完成添加前不进入画像列表
   };
 
   // ---- 长对话阅读位置：按「空间 + 会话」分别记忆 ----
@@ -364,13 +365,15 @@
       root.hidden = true;
       root.innerHTML = '';
       flow.editing = editingForCurrentConv(null);
+      flow.addDraft = null;
       return;
     }
     var scrollEl = root.querySelector('[data-role="pp-scroll"]');
     var keepTop = scrollEl ? scrollEl.scrollTop : 0;
     root.hidden = false;
     root.innerHTML = UI.renderPortraitPanel(store, conv, mode === 'edit' ? flow.panelErrors : {}, mode,
-      mode === 'edit' ? editingForCurrentConv(flow.editing) : null);
+      mode === 'edit' ? editingForCurrentConv(flow.editing) : null,
+      mode === 'edit' ? flow.addDraft : null);
     scrollEl = root.querySelector('[data-role="pp-scroll"]');
     if (scrollEl) scrollEl.scrollTop = keepTop; // 局部刷新保留画像正文滚动位置
     var active = mode === 'edit' ? flow.editing : null;
@@ -395,7 +398,9 @@
   function startEditing(next) {
     var conv = activeConversation();
     if (!conv) return;
-    flow.editing = next ? { convId: conv.id, kind: next.kind, kp: next.kp, personaId: next.personaId } : null;
+    if (next && (flow.editing || flow.addDraft)) return;
+    flow.editing = next ? { convId: conv.id, kind: next.kind, kp: next.kp, personaId: next.personaId,
+      temp: next.kind === 'region' ? conv.portrait.region.selected.slice() : null } : null;
     renderPanel(conv, 'edit');
   }
 
@@ -700,8 +705,10 @@
   function confirmPortrait() {
     var conv = activeConversation();
     if (!conv || !conv.portrait || conv.stage !== 'parsed') return;
-    // 有未结束的编辑先收起，避免用户以为已生效
-    flow.editing = null;
+    if (flow.editing || flow.addDraft) {
+      UI.showToast('请先完成当前编辑。');
+      return;
+    }
     var result = portraitIssues(conv);
     if (result.order.length) {
       flow.panelErrors = result.errors;
@@ -790,35 +797,51 @@
     }
   }
 
-  /** 编辑框输入即写入同一份草稿（不重绘面板，保焦点）；同时就近清除缺项提示。 */
+  /** V9 原位编辑：输入保持在控件临时值中，完成才写共享草稿。 */
   function onPanelInput(e) {
     var input = e.target;
     if (!input || !input.matches) return;
-    var conv = activeConversation();
-    if (!conv || !conv.portrait) return;
     var editing = flow.editing;
     if (input.matches('[data-role="field-editor"]') && editing && editing.kind === 'field') {
-      writeFieldValue(conv, editing.kp, input.value);
-      clearPanelError(editing.kp === 'region' ? 'portrait.region' : editing.kp);
-      if (editing.kp === 'portrait.region') clearPanelError('portrait.region');
+      var row = input.closest('.pp-field');
+      var commit = row && row.querySelector('[data-action="commit-field"]');
+      if (commit && editing.kp.split(':').pop() === 'target') {
+        commit.disabled = !input.value.trim();
+        var requiredHint = row.querySelector('.pp-edit-hint');
+        if (requiredHint) requiredHint.hidden = !!input.value.trim();
+      }
       return;
     }
-    if (input.matches('[data-role="name-editor"]') && editing && editing.kind === 'name') {
-      store.setPersonaFieldById(conv.spaceId, conv.id, editing.personaId, 'name', input.value);
+    if (input.matches('[data-role="draft-field"]') && flow.addDraft) {
+      flow.addDraft[input.dataset.key] = input.value;
+      if (input.dataset.key === 'target') {
+        var add = document.querySelector('.pp-draft-card [data-action="complete-add-persona"]');
+        if (add) add.disabled = !input.value.trim();
+        var hint = input.closest('.pp-field').querySelector('.pp-edit-hint');
+        if (hint) hint.hidden = !!input.value.trim();
+      }
       return;
     }
   }
 
-  function onPanelChange(e) {
-    var input = e.target;
-    if (!input || !input.matches || !input.matches('[data-role="region-picker"]')) return;
-    var conv = activeConversation();
-    if (!conv || !conv.portrait) return;
-    if (!input.value) return;
-    var res = store.addRegion(conv.spaceId, conv.id, input.value);
-    if (!res.ok && res.reason === 'duplicate') UI.showToast('该国家／地区已在列表中。');
-    if (!res.ok && res.reason === 'unknown-region') UI.showToast('无法识别该地区，请从列表中选择。');
-    clearPanelError('portrait.region');
+  function onPanelKeydown(e) {
+    if (!e.target.closest || !e.target.closest('.portrait-panel')) return;
+    if (e.key === 'Escape' && (flow.editing || flow.addDraft)) {
+      e.preventDefault();
+      if (flow.addDraft) flow.addDraft = null;
+      else flow.editing = null;
+      var conv = activeConversation();
+      if (conv) renderPanel(conv, 'edit');
+      return;
+    }
+    if (e.key !== 'Enter' || e.isComposing || e.keyCode === 229 || e.target.tagName !== 'INPUT') return;
+    if (e.target.matches('[data-role="field-editor"], [data-role="name-editor"]')) {
+      e.preventDefault();
+      var row = e.target.closest('.pp-field');
+      var action = e.target.matches('[data-role="name-editor"]') ? 'commit-name' : 'commit-field';
+      var button = (row || e.target.closest('.pp-persona')).querySelector('[data-action="' + action + '"]');
+      if (button && !button.disabled) button.click();
+    }
   }
 
   function onPanelClick(e) {
@@ -832,6 +855,7 @@
     if (action === 'close-portrait') {
       flow.panelOpen = false;   // 关闭面板恢复完整对话；再打开保留修改
       flow.editing = null;
+      flow.addDraft = null;
       if (lastPageKey !== pageKey()) renderAll();
       return;
     }
@@ -850,25 +874,62 @@
     }
     if (action === 'add-region') {
       if (conv.stage !== 'parsed') return;
+      if (!flow.editing || flow.editing.kind !== 'region') return;
       var picker = document.querySelector('.portrait-panel [data-role="region-picker"]');
       if (!picker || !picker.value) return;
-      var res = store.addRegion(conv.spaceId, conv.id, picker.value);
-      if (!res.ok && res.reason === 'duplicate') UI.showToast('该国家／地区已在列表中。');
-      if (!res.ok && res.reason === 'unknown-region') UI.showToast('无法识别该地区，请从列表中选择。');
-      clearPanelError('portrait.region');
+      if (flow.editing.temp.indexOf(picker.value) === -1) flow.editing.temp.push(picker.value);
+      renderPanel(conv, 'edit');
       return;
     }
     if (action === 'remove-region') {
       if (conv.stage !== 'parsed') return;
-      store.removeRegion(conv.spaceId, conv.id, el.dataset.code);
+      if (!flow.editing || flow.editing.kind !== 'region') return;
+      flow.editing.temp = flow.editing.temp.filter(function (code) { return code !== el.dataset.code; });
+      renderPanel(conv, 'edit');
       return;
     }
-    if (action === 'commit-region' || action === 'commit-field' || action === 'commit-name') {
-      startEditing(null);
+    if (action === 'commit-region') {
+      if (!flow.editing || flow.editing.kind !== 'region' || !flow.editing.temp.length) return;
+      var regions = flow.editing.temp.slice();
+      flow.editing = null;
+      store.setRegionSelection(conv.spaceId, conv.id, regions);
+      clearPanelError('portrait.region');
+      renderPanel(conv, 'edit');
+      return;
+    }
+    if (action === 'commit-field') {
+      if (!flow.editing || flow.editing.kind !== 'field') return;
+      var fieldEditor = document.querySelector('.portrait-panel [data-role="field-editor"]');
+      if (!fieldEditor) return;
+      var fieldValue = fieldEditor.value.trim();
+      var fieldKey = flow.editing.kp;
+      if (fieldKey.split(':').pop() === 'target' && !fieldValue) return;
+      var parsedKey = parseKp(fieldKey);
+      var oldValue = parsedKey.scope === 'common' ? conv.portrait.fields[parsedKey.field] :
+        (conv.portrait.personas.filter(function (p) { return p.id === parsedKey.personaId; })[0] || {})[parsedKey.field];
+      flow.editing = null;
+      if (fieldValue !== String(oldValue || '')) writeFieldValue(conv, fieldKey, fieldValue);
+      clearPanelError(fieldKey);
+      renderPanel(conv, 'edit');
+      return;
+    }
+    if (action === 'commit-name') {
+      if (!flow.editing || flow.editing.kind !== 'name') return;
+      var nameEditor = document.querySelector('.portrait-panel [data-role="name-editor"]');
+      if (!nameEditor) return;
+      var personaId = flow.editing.personaId;
+      var person = conv.portrait.personas.filter(function (p) { return p.id === personaId; })[0];
+      var name = nameEditor.value.trim();
+      flow.editing = null;
+      if (person && !name) store.resetPersonaNameAuto(conv.spaceId, conv.id, personaId);
+      else if (person && (name !== person.name || !person.nameManual)) {
+        store.setPersonaFieldById(conv.spaceId, conv.id, personaId, 'name', name);
+      }
+      renderPanel(conv, 'edit');
       return;
     }
     if (action === 'cancel-edit') {
-      startEditing(null); // 仅收起编辑控件；已输入内容此前已写入草稿
+      startEditing(null); // V9：舍弃本次控件临时值，共享草稿保持原样
       return;
     }
     if (action === 'edit-name') {
@@ -878,12 +939,29 @@
     }
     if (action === 'add-persona') {
       if (conv.stage !== 'parsed') return;
-      flow.editing = null;
-      store.addPersona(conv.spaceId, conv.id);
+      if (flow.editing || flow.addDraft) return;
+      flow.addDraft = { name: '', target: '', topics: '', preference: '', audience: '', must: '', avoid: '' };
+      renderPanel(conv, 'edit');
+      var draftName = document.querySelector('.pp-draft-card [data-key="name"]');
+      if (draftName) draftName.focus({ preventScroll: true });
+      return;
+    }
+    if (action === 'cancel-add-persona') {
+      flow.addDraft = null;
+      renderPanel(conv, 'edit');
+      return;
+    }
+    if (action === 'complete-add-persona') {
+      if (!flow.addDraft || !flow.addDraft.target.trim()) return;
+      var draft = flow.addDraft;
+      flow.addDraft = null;
+      store.addPersona(conv.spaceId, conv.id, draft);
+      renderPanel(conv, 'edit');
       return;
     }
     if (action === 'remove-persona') {
       if (conv.stage !== 'parsed') return;
+      if (flow.editing || flow.addDraft) return;
       var r = store.removePersonaById(conv.spaceId, conv.id, el.dataset.personaId);
       if (!r.ok && r.reason === 'last-persona') UI.showToast('项目至少保留一张目标达人画像。');
       else if (r.ok) clearPersonaErrors(el.dataset.personaId);
@@ -1135,7 +1213,7 @@
     document.getElementById('conversation-col').addEventListener('compositionend', onComposerComposition);
     document.getElementById('portrait-panel-root').addEventListener('click', onPanelClick);
     document.getElementById('portrait-panel-root').addEventListener('input', onPanelInput);
-    document.getElementById('portrait-panel-root').addEventListener('change', onPanelChange);
+    document.getElementById('portrait-panel-root').addEventListener('keydown', onPanelKeydown);
     document.getElementById('topbar').addEventListener('click', onConversationClick);
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('keydown', onDocumentKeydown);

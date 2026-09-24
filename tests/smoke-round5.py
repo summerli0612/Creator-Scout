@@ -135,7 +135,8 @@ def run():
             }""")
             check("%d 无横向溢出" % w, m["docOverflow"] <= 0, "overflow=%s" % m["docOverflow"])
             check("%d 分屏铺满且画像贴右边" % w,
-                  abs(m["convLeft"]-m["mainLeft"]) <= 1 and abs(m["ppRight"]-m["mainRight"]) <= 1,
+                  abs(m["convLeft"]-m["mainLeft"]) <= 1 and abs(m["ppRight"]-m["mainRight"]) <= 1
+                  and abs(m["convW"]-430) <= 1 and abs(m["convW"] + m["ppW"] - (m["mainRight"]-m["mainLeft"])) <= 1,
                   str(m))
             check("%d 左侧消息和输入共用边界" % w,
                   abs(m["innerLeft"]-m["compLeft"]) <= 1 and abs(m["innerRight"]-m["compRight"]) <= 1,

@@ -1032,8 +1032,8 @@ img { display: block; }
 /* ---- 03 分屏布局：工作区铺满主区域；左栏弹性占余量，右栏贴边。 ---- */
 .main-body.is-split { align-items: stretch; width: 100%; }
 .conversation-col.is-narrow {
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 0 0 430px;
+  min-width: 430px;
   border-right: 1px solid var(--border-default);
 }
 .conversation-col.is-narrow .blank-session { padding: 96px 16px 24px; }
@@ -1104,7 +1104,7 @@ img { display: block; }
 .jump-latest-hint.is-show { display: block; }
 
 /* ---- 03 画像面板（随工作区宽度适配，独立滚动） ---- */
-.portrait-panel-root { flex: 0 0 clamp(480px, 48%, 800px); min-width: 0; display: flex; }
+.portrait-panel-root { flex: 1 1 0; min-width: 0; display: flex; }
 .portrait-panel {
   width: 100%;
   min-width: 0;
@@ -1112,7 +1112,7 @@ img { display: block; }
   display: flex;
   flex-direction: column;
   background: var(--bg-composer);
-  border-left: 1px solid var(--border-default);
+  border-left: 0;
 }
 .pp-header {
   flex: none;
@@ -1123,8 +1123,9 @@ img { display: block; }
   position: relative;
   border-bottom: 1px solid var(--border-default);
 }
-.pp-title { font-size: 16px; font-weight: 500; line-height: 20px; color: var(--text-primary); }
-.pp-sub { margin-left: 16px; font-size: 11px; line-height: 20px; color: var(--text-weak); }
+.pp-header-content { width: 100%; max-width: 960px; margin: 0 auto; display: flex; align-items: center; min-width: 0; }
+.pp-title { flex: none; font-size: 16px; font-weight: 500; line-height: 20px; color: var(--text-primary); }
+.pp-sub { min-width: 0; margin-left: 16px; margin-right: 48px; font-size: 11px; line-height: 20px; color: var(--text-weak); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pp-close {
   position: absolute;
   right: 18px;
@@ -1139,10 +1140,12 @@ img { display: block; }
 }
 .pp-close:hover { background: #1A1D24; }
 .pp-scroll { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 8px; }
+.pp-content { width: 100%; max-width: 960px; margin: 0 auto; }
 .pp-note { padding: 14px 24px 0; font-size: 11px; line-height: 20px; color: var(--text-weak); }
 
-/* ---- V9 对齐的分组卡结构 ---- */
-.pp-group { padding: 0 24px; }
+/* ---- V9 确认页的分组结构 ---- */
+.pp-group { padding: 0 24px 18px; border-bottom: 1px solid var(--border-default); }
+.pp-group + .pp-group { margin-top: 16px; }
 .pp-group-head {
   display: flex;
   align-items: flex-start;
@@ -1278,14 +1281,15 @@ textarea.pp-field-edit {
 
 /* 画像卡（纵向字段 + 头部名称/操作） */
 .pp-personas-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 10px;
   min-height: 54px;
   padding: 6px 24px 4px;
 }
-.pp-personas-label .pp-group-title { flex: 1; }
-.pp-personas-label .pp-small { margin-top: 29px; position: absolute; color: var(--text-weak); font-size: 12px; line-height: 18px; }
+.pp-personas-label .pp-group-title { grid-column: 1; grid-row: 1; }
+.pp-personas-label .pp-small { grid-column: 1; grid-row: 2; color: var(--text-weak); font-size: 12px; line-height: 18px; }
+.pp-personas-label .pp-section-tag { grid-column: 2; grid-row: 1; }
 .pp-persona {
   margin: 0 24px 16px;
   background: var(--bg-panel);
@@ -1352,9 +1356,19 @@ textarea.pp-field-edit {
 .pp-persona-fields .pp-field-body { max-height: none; overflow: visible; white-space: pre-wrap; overflow-wrap: anywhere; }
 .pp-persona-fields .pp-field-body.is-area { display: block; -webkit-line-clamp: unset; }
 .pp-persona-fields .pp-field-meta { position: static; max-width: none; margin-top: 6px; white-space: normal; }
-.pp-sub-label { display: none; }
+.pp-sub-label { display: block; margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #292C33; color: var(--text-weak); font-size: 12px; line-height: 20px; }
+.pp-draft-card .pp-field { grid-template-columns: 120px minmax(0, 1fr); }
+.pp-draft-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #292C33; }
+.pp-draft-actions .pp-act { padding: 5px 10px; }
+.pp-draft-actions .pp-act.is-primary { padding: 5px 12px; }
 @media (max-width: 1300px) {
   .pp-persona-fields .pp-field { grid-template-columns: 105px minmax(0, 1fr); }
+}
+@media (max-width: 1150px) {
+  .conversation-col.is-narrow { flex-basis: 390px; min-width: 390px; }
+  .conversation-col.is-narrow .composer-actions { gap: 8px; }
+  .conversation-col.is-narrow .btn-ghost { width: 96px; }
+  .conversation-col.is-narrow .btn-ghost.btn-link { width: 92px; }
 }
 .pp-add-persona {
   margin: 4px 24px 0;
@@ -1373,12 +1387,15 @@ textarea.pp-field-edit {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 74px;
-  padding: 0 22px;
+  gap: 16px;
+  min-height: 74px;
+  padding: 12px 22px;
   border-top: 1px solid var(--border-default);
 }
-.pp-footer-hint { font-size: 12px; font-weight: 500; line-height: 20px; color: var(--text-weak); }
+.pp-footer-inner { width: 100%; max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 0; }
+.pp-footer-hint { flex: 1; min-width: 0; font-size: 12px; font-weight: 500; line-height: 20px; color: var(--text-weak); overflow-wrap: anywhere; }
 .pp-confirm {
+  flex: none;
   width: 160px;
   height: 42px;
   border-radius: 7px;
@@ -1388,6 +1405,7 @@ textarea.pp-field-edit {
   font-weight: 500;
 }
 .pp-confirm:hover { background: #6AE2C1; }
+.pp-confirm:disabled { opacity: .45; cursor: default; }
 /* 查看态（创建后）：隐藏编辑入口 */
 .portrait-panel.is-view .pp-act,
 .portrait-panel.is-view .pp-persona-delete,

@@ -728,12 +728,12 @@
     { key: 'marketingGoal', label: '推广目标', kind: 'area' }
   ];
   var V9_PFIELDS = [
-    { key: 'target', label: '目标达人', kind: 'area', required: true },
-    { key: 'topics', label: '内容主题', kind: 'area' },
-    { key: 'preference', label: '内容偏好', kind: 'area' },
-    { key: 'audience', label: '期望影响人群', kind: 'area' },
-    { key: 'must', label: '一定要符合', kind: 'area' },
-    { key: 'avoid', label: '不希望出现', kind: 'area' }
+    { key: 'target', label: '目标达人', kind: 'area', required: true, ph: '例如：分享临床工作、医疗效率内容的医生创作者' },
+    { key: 'topics', label: '内容主题', kind: 'area', ph: '补充内容主题' },
+    { key: 'preference', label: '内容偏好', kind: 'area', ph: '例如：真实自然、专业可信、生活化、测评、教程或场景展示' },
+    { key: 'audience', label: '期望影响人群', kind: 'area', ph: '补充期望影响人群' },
+    { key: 'must', label: '一定要符合', kind: 'area', ph: '例如：具有明确的医生或临床从业身份' },
+    { key: 'avoid', label: '不希望出现', kind: 'area', ph: '例如：纯机构宣传账号、内容搬运账号' }
   ];
 
   function countryName(code) {
@@ -765,13 +765,16 @@
 
   /** V9 field-row：编辑态（V9 editor + editorActions）。 */
   function editingRowHTML(def, value, source) {
+    var ph = esc(def.ph || (def.required ? '请填写' : '补充') + def.label);
     var control = def.kind === 'area'
-      ? '<textarea class="pp-field-edit" data-role="field-editor" rows="3" aria-label="' + esc(def.label) + '">' + esc(value) + '</textarea>'
-      : '<input class="pp-field-edit" data-role="field-editor" type="text" value="' + esc(value) + '" aria-label="' + esc(def.label) + '">';
+      ? '<textarea class="pp-field-edit" data-role="field-editor" rows="3" placeholder="' + ph + '" aria-label="' + esc(def.label) + '">' + esc(value) + '</textarea>'
+      : '<input class="pp-field-edit" data-role="field-editor" type="text" value="' + esc(value) + '" placeholder="' + ph + '" aria-label="' + esc(def.label) + '">';
     return control +
+      (def.required ? '<div class="pp-edit-hint"' + (String(value || '').trim() ? ' hidden' : '') + '>目标达人为启动必填</div>' : '') +
       '<div class="pp-field-meta">' + pillHTML(source) +
       '<span class="pp-row-actions">' +
-      '<button type="button" class="pp-act is-primary" data-action="commit-field">完成</button>' +
+      '<button type="button" class="pp-act is-primary" data-action="commit-field"' +
+      (def.required && !String(value || '').trim() ? ' disabled' : '') + '>完成</button>' +
       '<button type="button" class="pp-act is-plain" data-action="cancel-edit">取消</button>' +
       '</span></div>';
   }
@@ -787,18 +790,20 @@
   }
 
   /** 目标国家／地区：V9 region 行（chips + select + 添加；至少一项才可进入命名）。 */
-  function regionRowHTML(region, error, isEditing, view) {
+  function regionRowHTML(region, error, editing, view) {
     var selected = (region && region.selected) || [];
     var source = region && region.source;
+    var isEditing = !!editing;
+    var shown = isEditing && editing.temp ? editing.temp : selected;
     var mainCls = 'pp-field-main' + (isEditing ? ' is-editing' : '');
     var body;
     if (isEditing && !view) {
-      var chips = selected.map(function (code) {
+      var chips = shown.map(function (code) {
         return '<span class="pp-chip">' + esc(countryName(code)) +
           '<button type="button" data-action="remove-region" data-code="' + esc(code) + '" aria-label="移除' + esc(countryName(code)) + '">×</button></span>';
       }).join('');
       var options = (Fixtures.countryList || []).map(function (item) {
-        var dup = selected.indexOf(item[0]) !== -1;
+        var dup = shown.indexOf(item[0]) !== -1;
         return '<option value="' + esc(item[0]) + '"' + (dup ? ' disabled' : '') + '>' + esc(item[1]) + '</option>';
       }).join('');
       body = '<div class="pp-region-body">' +
@@ -809,7 +814,7 @@
         '</div></div>' +
         '<div class="pp-field-meta">' + pillHTML(source) +
         '<span class="pp-row-actions">' +
-        '<button type="button" class="pp-act is-primary" data-action="commit-region"' + (selected.length ? '' : ' disabled') + '>完成</button>' +
+        '<button type="button" class="pp-act is-primary" data-action="commit-region"' + (shown.length ? '' : ' disabled') + '>完成</button>' +
         '<button type="button" class="pp-act is-plain" data-action="cancel-edit">取消</button>' +
         '</span></div>';
     } else if (selected.length) {
@@ -859,6 +864,7 @@
     h += '</div></div>';
     h += '<div class="pp-persona-fields">';
     V9_PFIELDS.forEach(function (def) {
+      if (def.key === 'must') h += '<div class="pp-sub-label">筛选条件</div>';
       var kp = 'persona:' + persona.id + ':' + def.key;
       var isEditing = !!(editing && editing.kind === 'field' && editing.kp === kp);
       var source = persona.meta && persona.meta[def.key] ? persona.meta[def.key].source : '';
@@ -869,12 +875,37 @@
     return h;
   }
 
+  /** 与 V9 一样先在草稿卡填写，再一次性加入画像列表。 */
+  function draftPersonaHTML(draft) {
+    var h = '<div class="pp-persona pp-draft-card">' +
+      '<div class="pp-persona-head"><div class="pp-persona-title-block">' +
+      '<div class="pp-persona-name-text">新目标画像</div>' +
+      '<div class="pp-persona-head-hint">填写完成后添加到画像列表</div></div></div>' +
+      '<div class="pp-persona-fields">' +
+      '<div class="pp-field"><div class="pp-field-label">画像名称</div><div class="pp-field-main">' +
+      '<input class="pp-field-edit" data-role="draft-field" data-key="name" type="text" placeholder="留空则自动命名" value="' + esc(draft.name || '') + '"></div></div>';
+    V9_PFIELDS.forEach(function (def) {
+      if (def.key === 'must') h += '<div class="pp-sub-label">筛选条件</div>';
+      h += '<div class="pp-field"><div class="pp-field-label">' + esc(def.label) +
+        (def.required ? ' <span class="req">*</span>' : '') + '</div><div class="pp-field-main">' +
+        '<textarea class="pp-field-edit" data-role="draft-field" data-key="' + esc(def.key) +
+        '" rows="3" placeholder="' + esc(def.ph || (def.required ? '请填写' : '补充') + def.label) + '">' +
+        esc(draft[def.key] || '') + '</textarea>' +
+        (def.required ? '<div class="pp-edit-hint"' + (String(draft.target || '').trim() ? ' hidden' : '') + '>目标达人为启动必填</div>' : '') +
+        '</div></div>';
+    });
+    return h + '</div><div class="pp-draft-actions">' +
+      '<button type="button" class="pp-act is-plain" data-action="cancel-add-persona">取消</button>' +
+      '<button type="button" class="pp-act is-primary" data-action="complete-add-persona"' +
+      (String(draft.target || '').trim() ? '' : ' disabled') + '>完成添加</button></div></div>';
+  }
+
   /**
    * 渲染画像面板。
    * editing：{ kind:'field', kp } | { kind:'region' } | { kind:'name', personaId } | null
    * 编辑/阅读切换由调用方持有（不落盘），编辑值直接写入共享草稿。
    */
-  function renderPortraitPanel(store, conv, errors, mode, editing) {
+  function renderPortraitPanel(store, conv, errors, mode, editing, addDraft) {
     errors = errors || {};
     mode = mode || 'edit';
     editing = editing || null;
@@ -890,13 +921,13 @@
 
     var h = '';
     h += '<div class="portrait-panel' + (view ? ' is-view' : '') + '" data-mode="' + mode + '">';
-    h += '<div class="pp-header">' +
-      '<div class="pp-title">项目画像</div>' +
-      '<div class="pp-sub">' + (view ? '达人筛选标准 · 已保存' : '达人筛选标准 · 创建前确认') + '</div>' +
+    h += '<div class="pp-header"><div class="pp-header-content">' +
+      '<div class="pp-title">' + (view ? '项目画像' : '确认并完善项目画像') + '</div>' +
+      '<div class="pp-sub">' + (view ? '达人筛选标准 · 已保存' : '确认 Agent 整理的内容，可继续补充达人要求') + '</div>' +
+      '</div>' +
       '<button type="button" class="pp-close" data-action="close-portrait" aria-label="关闭画像面板">×</button>' +
       '</div>';
-    h += '<div class="pp-scroll" data-role="pp-scroll">';
-    h += '<div class="pp-note">可直接编辑，也可通过左侧对话修改；两侧共用同一份草稿</div>';
+    h += '<div class="pp-scroll" data-role="pp-scroll"><div class="pp-content">';
 
     // 基础找人（V9 renderBasic）
     h += '<div class="pp-group">';
@@ -904,7 +935,7 @@
       '<div class="pp-group-hint">启动必填：目标国家／地区</div></div>' +
       '<span class="pp-section-tag">启动必填</span></div>';
     h += fieldRowHTML('common:platform', { label: '平台', kind: 'locked' }, 'Instagram', '入口确定 · 只读', '', false, true);
-    h += regionRowHTML(region, errors['portrait.region'], editing && editing.kind === 'region', view);
+    h += regionRowHTML(region, errors['portrait.region'], editing && editing.kind === 'region' ? editing : null, view);
     h += '</div>';
 
     // 产品与营销背景（V9 renderProduct）
@@ -929,21 +960,25 @@
     portrait.personas.forEach(function (persona) {
       h += personaCardHTML(persona, errors, editing, view, canDelete);
     });
+    if (addDraft && !view) h += draftPersonaHTML(addDraft);
     if (!view) {
-      h += '<button type="button" class="pp-add-persona" data-action="add-persona">＋ 新增目标达人画像</button>';
+      h += '<button type="button" class="pp-add-persona" data-action="add-persona"' +
+        (addDraft ? ' hidden' : '') + '>＋ 新增目标达人画像</button>';
     }
-    h += '</div>';
+    h += '</div></div>';
 
-    h += '<div class="pp-footer">';
+    h += '<div class="pp-footer"><div class="pp-footer-inner">';
     if (view) {
       h += '<div class="pp-footer-hint">画像已确认 · 初始版本 v1（项目创建时保存）</div>';
     } else {
       h += '<div class="pp-footer-hint">' +
-        (missing.length ? '还需补充启动必填：' + esc(missing.join('、')) : '启动必填已齐全，其余信息可稍后完善') +
+        (editing || addDraft ? '请先完成当前编辑' :
+          (missing.length ? '还需补充启动必填：' + esc(missing.join('、')) : '启动必填已齐全，其余信息可稍后完善')) +
         '</div>' +
-        '<button type="button" class="pp-confirm" data-action="confirm-portrait">确认画像并创建项目</button>';
+        '<button type="button" class="pp-confirm" data-action="confirm-portrait"' +
+        (editing || addDraft ? ' disabled' : '') + '>确认画像并创建项目</button>';
     }
-    h += '</div></div>';
+    h += '</div></div></div>';
     return h;
   }
 

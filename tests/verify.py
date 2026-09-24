@@ -358,7 +358,7 @@ def run():
             page.wait_for_timeout(150)
 
         def edit_field(kp, value):
-            """阅读态 → 编辑态 → 输入即写入 → 完成（收起控件）。"""
+            """V9 原位编辑：输入保持临时值，点击完成才写入共享草稿。"""
             page.click(".portrait-panel [data-frow='%s'] [data-action='edit-field']" % kp)
             page.wait_for_selector(".portrait-panel [data-frow='%s'] [data-role='field-editor']" % kp)
             page.fill(".portrait-panel [data-frow='%s'] [data-role='field-editor']" % kp, value)
@@ -403,6 +403,15 @@ def run():
             " return s.getConversation(s.getState().currentSpaceId, c).portrait.fields.coreValue; }"))
         check("03 完成后回到阅读态（自然换行）",
               page.locator(".portrait-panel [data-frow='common:coreValue'] [data-role='field-editor']").count() == 0)
+        brand_before_cancel = page.evaluate(
+            "() => { const s = window.__creatorScoutStore; const c = s.getActiveConversationId();"
+            " return s.getConversation(s.getState().currentSpaceId, c).portrait.fields.brand; }")
+        page.click(".portrait-panel [data-frow='common:brand'] [data-action='edit-field']")
+        page.fill(".portrait-panel [data-frow='common:brand'] [data-role='field-editor']", "取消时不应保存")
+        page.click(".portrait-panel [data-frow='common:brand'] [data-action='cancel-edit']")
+        check("03 V9 取消字段编辑不改共享草稿", page.evaluate(
+            "() => { const s = window.__creatorScoutStore; const c = s.getActiveConversationId();"
+            " return s.getConversation(s.getState().currentSpaceId, c).portrait.fields.brand; }") == brand_before_cancel)
 
         # 对话修改：只改指定字段 + 冲突守卫（手动编辑晚于旧请求）
         page.fill(".composer textarea", "品牌改成 TrailChef")
@@ -434,8 +443,7 @@ def run():
             " return s.getConversation(s.getState().currentSpaceId, c).portrait.region.selected; }")
         check("07 无法识别的地区不伪装成选项也不清空", vals == ["DE"], str(vals))
 
-        # 03A 校验：地区缺失 / 空目标达人 / 至少一张画像；缺项定位首个
-        # 清空地区：移除全部标签后取消（0 项时「完成」被禁用，属预期防护）
+        # 03A V9 编辑语义：地区修改先保留在临时列表，取消恢复已确认选择。
         page.click(".portrait-panel [data-action='edit-region']")
         page.wait_for_selector(".portrait-panel [data-role='region-picker']")
         n = page.locator(".portrait-panel .pp-chip").count()
@@ -444,19 +452,24 @@ def run():
             page.wait_for_timeout(120)
         check("03A 0 项时完成按钮禁用", page.eval_on_selector(
             ".portrait-panel [data-action='commit-region']", "e => e.disabled"))
+        check("03A 地区临时编辑未写入草稿", region_selected() == ["DE"], str(region_selected()))
         page.click(".portrait-panel [data-action='cancel-edit']")
-        page.click(".pp-confirm")
-        page.wait_for_timeout(250)
-        check("03A 地区缺失就近报错", "国家／地区" in page.inner_text(".portrait-panel [data-frow='region'] .pp-field-error"))
-        check("03A 校验失败不开弹窗", page.locator(".naming-modal").count() == 0)
+        check("03A 取消地区编辑保留原配置", region_selected() == ["DE"], str(region_selected()))
         edit_region_add("US")
+        before_add = page.locator(".pp-persona[data-persona-id]").count()
         page.click(".pp-add-persona")
         page.wait_for_timeout(250)
-        page.click(".pp-confirm")
-        page.wait_for_timeout(250)
-        check("03A 新增画像空目标达人报错", page.locator(".portrait-panel .pp-field-error").count() >= 1)
-        first_err = page.eval_on_selector(".portrait-panel .pp-field-error", "e => e.closest('.pp-field').dataset.frow")
-        check("03A 定位首个缺项（目标达人）", ":target" in first_err, first_err)
+        check("03A 新增画像先显示 V9 草稿卡", page.locator(".pp-draft-card").count() == 1
+              and page.locator(".pp-persona[data-persona-id]").count() == before_add)
+        check("03A 空目标达人不能完成添加", page.eval_on_selector(
+            ".pp-draft-card [data-action='complete-add-persona']", "e => e.disabled"))
+        check("03A 草稿卡编辑中不能确认画像", page.eval_on_selector(".pp-confirm", "e => e.disabled"))
+        page.click(".pp-draft-card [data-action='cancel-add-persona']")
+        check("03A 取消新增不留下空画像", page.locator(".pp-persona[data-persona-id]").count() == before_add)
+        page.click(".pp-add-persona")
+        page.fill(".pp-draft-card [data-key='target']", "分享户外旅行与便携咖啡内容的创作者")
+        page.click(".pp-draft-card [data-action='complete-add-persona']")
+        check("03A 完成添加才写入画像列表", page.locator(".pp-persona[data-persona-id]").count() == before_add + 1)
         page.locator(".pp-persona-delete").last.click()
         page.wait_for_timeout(150)
         n = page.locator(".pp-persona-delete").count()

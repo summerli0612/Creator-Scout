@@ -39,6 +39,10 @@ async function run() {
   assert.equal(store.applyParseResult(team, conv.id, parseId, parsed), true);
   assert.equal(conv.stage, 'parsed');
   assert.ok(conv.portrait.region.selected.length);
+  const originalRegion = conv.portrait.region.selected.slice();
+  const alternateRegion = window.Fixtures.countryList.find(([code]) => !originalRegion.includes(code))[0];
+  assert.equal(store.setRegionSelection(team, conv.id, [alternateRegion]), true);
+  assert.equal(conv.portrait.region.selected.join(','), alternateRegion);
 
   const oldIntent = store.claimIntent(team, conv.id);
   store.setPortraitField(team, conv.id, 'brand', '用户最新品牌');
@@ -46,6 +50,23 @@ async function run() {
     { field: 'brand', value: '过时回复' }, oldIntent).applied, false);
   assert.equal(conv.portrait.fields.brand, '用户最新品牌');
   const originalPersona = conv.portrait.personas[0];
+  const countBeforeDraft = conv.portrait.personas.length;
+  const draftCard = window.UI.renderPortraitPanel(store, conv, {}, 'edit', null,
+    { name: '', target: '旅行内容创作者', topics: '', preference: '', audience: '', must: '', avoid: '' });
+  assert.ok(draftCard.includes('完成添加'));
+  assert.ok(draftCard.includes('筛选条件'));
+  assert.match(draftCard, /class="pp-confirm"[^>]*disabled/);
+  assert.equal(conv.portrait.personas.length, countBeforeDraft);
+  const completed = store.addPersona(team, conv.id, { name: '', target: '旅行内容创作者' });
+  assert.equal(completed.name, '旅行内容创作者');
+  assert.equal(conv.portrait.personas.length, countBeforeDraft + 1);
+  store.setPersonaFieldById(team, conv.id, completed.id, 'target', '分享数码产品的创作者');
+  assert.ok(completed.name.endsWith('3C达人'));
+  store.setPersonaFieldById(team, conv.id, completed.id, 'name', '用户命名');
+  store.setPersonaFieldById(team, conv.id, completed.id, 'target', '分享游戏内容的创作者');
+  assert.equal(completed.name, '用户命名');
+  store.resetPersonaNameAuto(team, conv.id, completed.id);
+  assert.ok(completed.name.endsWith('游戏达人'));
   const extra = store.addPersona(team, conv.id);
   assert.ok(extra);
   store.setPersonaFieldById(team, conv.id, extra.id, 'target', '长内容'.repeat(80));

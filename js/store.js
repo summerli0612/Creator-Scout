@@ -31,6 +31,30 @@
     return prefix + '-' + s;
   }
 
+  function autoPersonaName(target, region) {
+    var value = String(target || '').trim();
+    var core = '';
+    if (/兽医/.test(value)) core = '兽医型达人';
+    else if (/护士|护理/.test(value)) core = '护士型达人';
+    else if (/医护/.test(value)) core = '医护型达人';
+    else if (/医生|临床/.test(value)) core = '医生型达人';
+    else if (/3C|数码|消费电子/i.test(value)) core = '3C达人';
+    else if (/美妆|个护|美容/.test(value)) core = '美妆个护达人';
+    else if (/家居/.test(value)) core = '家居达人';
+    else if (/游戏/.test(value)) core = '游戏达人';
+    if (!core) return value.length > 12 ? value.slice(0, 12) + '…' : value;
+    var selected = region && region.selected;
+    return selected && selected.length === 1 && Fixtures.countryMap[selected[0]]
+      ? Fixtures.countryMap[selected[0]] + core : core;
+  }
+
+  function refreshAutoPersonaNames(conv) {
+    if (!conv || !conv.portrait) return;
+    conv.portrait.personas.forEach(function (persona) {
+      if (!persona.nameManual) persona.name = autoPersonaName(persona.target, conv.portrait.region);
+    });
+  }
+
   function spaceById(id) {
     for (var i = 0; i < Fixtures.spaces.length; i++) {
       if (Fixtures.spaces[i].id === id) return Fixtures.spaces[i];
@@ -172,7 +196,8 @@
     });
     var personas = p.personas.map(function (persona) {
       if (!persona || typeof persona !== 'object') return null;
-      var out = { id: typeof persona.id === 'string' ? persona.id : uid('persona'), meta: {} };
+      var out = { id: typeof persona.id === 'string' ? persona.id : uid('persona'),
+        nameManual: !!persona.nameManual, meta: {} };
       PERSONA_TEXT_FIELDS.forEach(function (f) {
         out[f] = typeof persona[f] === 'string' ? persona[f] : '';
         if (persona.meta && persona.meta[f] && typeof persona.meta[f].source === 'string') {
@@ -603,6 +628,7 @@
           if (pmeta && pmeta.seq > seq) return { applied: false, currentValue: persona.target };
           persona.target = patch.value;
           persona.meta.target = { source: '对话修改', seq: seq };
+          if (!persona.nameManual) persona.name = autoPersonaName(persona.target, conv.portrait.region);
           commit();
           return { applied: true, personaId: persona.id };
         }
@@ -623,6 +649,7 @@
           conv.portrait.region.selected = codes;
           conv.portrait.region.source = '对话修改';
           conv.portrait.region.meta = { source: '对话修改', seq: Math.max(seq, conv.intentSeq) };
+          refreshAutoPersonaNames(conv);
           commit();
           return { applied: true };
         }
@@ -651,6 +678,23 @@
         return true;
       },
       // ---- 目标国家／地区（结构化；手动选择写同一份草稿） ----
+      setRegionSelection: function (spaceId, convId, codes) {
+        var conv = findConversation(spaceId, convId);
+        if (!conv || !conv.portrait || !Array.isArray(codes)) return false;
+        var known = knownCountryCodes();
+        var selected = codes.filter(function (code, index) {
+          return known.indexOf(code) !== -1 && codes.indexOf(code) === index;
+        });
+        if (!selected.length) return false;
+        if (selected.join(',') === conv.portrait.region.selected.join(',')) return true;
+        conv.intentSeq += 1;
+        conv.portrait.region.selected = selected;
+        conv.portrait.region.source = '手动修改';
+        conv.portrait.region.meta = { source: '手动修改', seq: conv.intentSeq };
+        refreshAutoPersonaNames(conv);
+        commit();
+        return true;
+      },
       addRegion: function (spaceId, convId, code) {
         var conv = findConversation(spaceId, convId);
         if (!conv || !conv.portrait) return { ok: false, reason: 'invalid' };
@@ -660,6 +704,7 @@
         conv.portrait.region.selected.push(code);
         conv.portrait.region.source = '手动修改';
         conv.portrait.region.meta = { source: '手动修改', seq: conv.intentSeq };
+        refreshAutoPersonaNames(conv);
         commit();
         return { ok: true };
       },
@@ -672,6 +717,7 @@
         conv.intentSeq += 1;
         conv.portrait.region.source = '手动修改';
         conv.portrait.region.meta = { source: '手动修改', seq: conv.intentSeq };
+        refreshAutoPersonaNames(conv);
         commit();
         return { ok: true };
       },
@@ -684,6 +730,8 @@
         conv.intentSeq += 1;
         persona[field] = String(value == null ? '' : value);
         persona.meta[field] = { source: '手动修改', seq: conv.intentSeq };
+        if (field === 'name') persona.nameManual = true;
+        if (field === 'target' && !persona.nameManual) persona.name = autoPersonaName(persona.target, conv.portrait.region);
         schedulePersist();
         return true;
       },
@@ -697,14 +745,36 @@
         conv.intentSeq += 1;
         persona[field] = String(value == null ? '' : value);
         persona.meta[field] = { source: '手动修改', seq: conv.intentSeq };
+        if (field === 'name') persona.nameManual = true;
+        if (field === 'target' && !persona.nameManual) persona.name = autoPersonaName(persona.target, conv.portrait.region);
         schedulePersist();
         return true;
       },
-      addPersona: function (spaceId, convId) {
+      resetPersonaNameAuto: function (spaceId, convId, personaId) {
+        var conv = findConversation(spaceId, convId);
+        var persona = conv && conv.portrait && conv.portrait.personas.filter(function (p) { return p.id === personaId; })[0];
+        if (!persona) return false;
+        conv.intentSeq += 1;
+        persona.nameManual = false;
+        persona.name = autoPersonaName(persona.target, conv.portrait.region);
+        schedulePersist();
+        return true;
+      },
+      addPersona: function (spaceId, convId, draft) {
         var conv = findConversation(spaceId, convId);
         if (!conv || !conv.portrait) return null;
-        var persona = { id: uid('persona'), name: '新画像 ' + (conv.portrait.personas.length + 1),
+        var persona = { id: uid('persona'), name: '新画像 ' + (conv.portrait.personas.length + 1), nameManual: false,
           target: '', topics: '', preference: '', audience: '', must: '', avoid: '', meta: {} };
+        if (draft) {
+          if (!String(draft.target || '').trim()) return null;
+          conv.intentSeq += 1;
+          ['target', 'topics', 'preference', 'audience', 'must', 'avoid'].forEach(function (field) {
+            persona[field] = String(draft[field] || '').trim();
+            if (persona[field]) persona.meta[field] = { source: '手动修改', seq: conv.intentSeq };
+          });
+          persona.name = String(draft.name || '').trim() || autoPersonaName(persona.target, conv.portrait.region);
+          persona.nameManual = !!String(draft.name || '').trim();
+        }
         conv.portrait.personas.push(persona);
         commit();
         return persona;
