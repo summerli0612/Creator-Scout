@@ -37,6 +37,7 @@
     key: null,          // 当前渲染出来的会话键
     positions: {},      // key → scrollTop
     anchors: {},        // key → { id, offset }，排版变化后保持可见消息位置
+    split: {},          // key → 上一次渲染时是否打开画像
     counts: {},         // key → 上一次渲染的消息条数
     atBottom: {},       // key → 上次离开时是否在底部
     force: false        // 下一次渲染强制跟随到底部（用户主动发送 / 首次打开）
@@ -77,13 +78,15 @@
     scrollMem.atBottom[key] = isNearBottom(el);
     scrollMem.counts[key] = el.querySelectorAll('.msg-block').length;
     scrollMem.anchors[key] = visibleMessageAnchor(el);
+    scrollMem.split[key] = document.querySelector('.main-body').classList.contains('is-split');
   }
 
   /**
    * 渲染后恢复阅读位置：
    * - 用户主动发送 / 首次打开：跟随到底部
    * - 原本在底部：新回复和分屏排版变化后仍跟随底部
-   * - 阅读历史：用消息 ID 与视口偏移恢复，避免换行高度变化造成跳跃
+   * - 开关画像：保持原滚动数值，避免分屏换行增高带来位置偏移
+   * - 其他重绘：用消息 ID 与视口偏移恢复可见消息
    */
   function restoreScrollState() {
     var el = chatScrollEl();
@@ -96,6 +99,9 @@
       el.scrollTop = el.scrollHeight;
     } else if (scrollMem.atBottom[key]) {
       el.scrollTop = el.scrollHeight;
+    } else if (scrollMem.positions[key] != null &&
+               scrollMem.split[key] !== document.querySelector('.main-body').classList.contains('is-split')) {
+      el.scrollTop = scrollMem.positions[key];
     } else {
       var anchor = scrollMem.anchors[key];
       var target = anchor && Array.prototype.find.call(el.querySelectorAll('.msg-block[data-message-id]'),
@@ -109,6 +115,7 @@
       }
     }
     scrollMem.counts[key] = domCount;
+    scrollMem.split[key] = document.querySelector('.main-body').classList.contains('is-split');
     scrollMem.key = key;
     scrollMem.force = false;
     updateJumpButton();

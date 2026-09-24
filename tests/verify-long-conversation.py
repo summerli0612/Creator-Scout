@@ -44,9 +44,10 @@ COUNT_JS = "() => document.querySelectorAll('.chat-scroll .msg-block').length"
 
 def run():
     index_url = (ROOT / "index.html").resolve().as_uri()
+    width = int(sys.argv[1]) if len(sys.argv) > 1 else 1440
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        ctx = browser.new_context(viewport={"width": 1440, "height": 900})
+        ctx = browser.new_context(viewport={"width": width, "height": 900})
         page = ctx.new_page()
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
@@ -155,6 +156,7 @@ def run():
         page.wait_for_selector(".portrait-panel")
         page.wait_for_timeout(300)
         pos_in_split = page.evaluate(POS_JS)
+        shot(page, "round5-long-split-%d.png" % width)
         page.evaluate("() => document.querySelector('.pp-close').click()")
         page.wait_for_timeout(300)
         pos_closed = page.evaluate(POS_JS)
